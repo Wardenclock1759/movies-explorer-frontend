@@ -58,36 +58,6 @@
   gap: 30px;
 }
 
-.header__profile {
-  border-radius: 40px;
-  background: #202020;
-  box-shadow: 0px 3px 14px 0px rgba(0, 0, 0, 0.08); 
-  color: #FFF;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 7px;
-}
-
-.header__title {
-  margin: 0;
-  font-size: 13px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 12px;
-  pointer-events: none;
-}
-
-.header__icon {
-  width: 26px;
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 50px;
-  background: #313131;
-}
-
 .header__menu-button {
   padding: 0;
   background: none;
@@ -103,10 +73,6 @@
 @media screen and (max-width: 768px) {
   .header {
     padding: 0 30px;
-  }
-
-  .header__profile {
-    display: none;
   }
 
   .header__menu-button {

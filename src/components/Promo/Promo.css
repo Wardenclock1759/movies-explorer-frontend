@@ -21,3 +21,64 @@
   margin-right: 70px;
   align-self: flex-end;
 }
+
+.promo__pattern_size_med {
+  display: none;
+}
+
+.promo__pattern_size_small {
+  display: none;
+}
+
+@media screen and (max-width: 768px) {
+  .promo {
+    height: 844px;
+    padding-bottom: 70px;
+    box-sizing: border-box;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 140px;
+  }
+  
+  .promo__title {
+    margin: 0;
+    width: 680px;
+    text-align: center;
+  }
+  
+  .promo__pattern {
+    margin: 0;
+    align-self: center;
+  }
+
+  .promo__pattern_size_big {
+    display: none;
+  }
+  
+  .promo__pattern_size_med {
+    display: block;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .promo {
+    height: 630px;
+    padding-bottom: 40px;
+    gap: 60px;
+  }
+
+  .promo__title {
+    width: 300px;
+    font-size: 31px;
+    line-height: 39px;
+    letter-spacing: -1.24px;
+  }
+  
+  .promo__pattern_size_med {
+    display: none;
+  }
+  
+  .promo__pattern_size_small {
+    display: block;
+  }
+}

@@ -67,3 +67,13 @@
     gap: 15px;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .filter {
+    width: fit-content;
+  }
+
+  .filter__text {
+    font-size: 11px;
+  }
+}

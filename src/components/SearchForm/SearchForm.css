@@ -75,3 +75,34 @@
     margin-right: 19px;
   }
 }
+
+@media screen and (max-width: 500px) {
+  .search {
+    margin: 80px 10px 45px;
+    padding: 0;
+    flex-direction: column;
+    gap: 45px;
+    align-items: center;
+    background: none;
+  }
+  
+  .search__form {
+    margin-right: 0;
+    padding: 19px;
+    border-radius: 9px;
+    background: #2F2F2F;
+  }
+
+  .search__icon {
+    display: none;
+  }
+
+  .search__input {
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .search__line {
+    display: none;
+  }
+}

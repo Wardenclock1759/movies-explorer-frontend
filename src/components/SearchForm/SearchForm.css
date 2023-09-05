@@ -60,3 +60,18 @@
   margin-right: 30px;
   border-right: 1px solid #424242;
 }
+
+@media screen and (max-width: 768px) {
+  .search {
+    margin: 80px 30px;
+    padding: 16px 20px 16px 19px;
+  }
+  
+  .search__form {
+    margin-right: 19px;
+  }
+
+  .search__line {
+    margin-right: 19px;
+  }
+}

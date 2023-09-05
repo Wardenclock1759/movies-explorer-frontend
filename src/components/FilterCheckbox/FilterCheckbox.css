@@ -61,3 +61,9 @@
   font-weight: 400;
   line-height: 18px;
 }
+
+@media screen and (max-width: 768px) {
+  .filter {
+    gap: 15px;
+  }
+}

@@ -5,6 +5,7 @@ import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
+import Footer from '../Footer/Footer';
 
 const Main = ({ loggedIn, handleIconClick }) => {
   return (
@@ -19,6 +20,7 @@ const Main = ({ loggedIn, handleIconClick }) => {
     <Techs/>
     <AboutMe/>
     <Portfolio/>
+    <Footer/>
     </>
   );
 }

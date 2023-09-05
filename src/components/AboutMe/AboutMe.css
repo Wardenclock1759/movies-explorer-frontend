@@ -60,12 +60,17 @@
 
 .about__link {
   margin-top: auto;
+  width: fit-content;
   text-decoration: none;
   color: #FFF;
   font-size: 14px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+}
+
+.about__link:hover {
+  opacity: 0.7;
 }
 
 .about__image {

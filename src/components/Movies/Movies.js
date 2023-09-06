@@ -3,6 +3,7 @@ import Header from "../Header/Header";
 import NavTab from "../NavTab/NavTab";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
+import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
 const Movies = ({loggedIn, handleIconClick}) => {
 
@@ -21,6 +22,7 @@ const Movies = ({loggedIn, handleIconClick}) => {
         handleMenuClick={toggleSidebar}
       />
       <SearchForm/>
+      <MoviesCardList/>
       <NavTab
         opened={sidebarOpen}
         handleClose={toggleSidebar}

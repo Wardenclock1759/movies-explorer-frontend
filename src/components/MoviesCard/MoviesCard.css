@@ -33,6 +33,14 @@
   cursor: pointer;
 }
 
+.card__button svg path {
+  fill: #FFF;
+}
+
+.card__button_liked svg path {
+  fill: #EE3465;
+}
+
 .card__button:hover {
   opacity: 0.8;
 }

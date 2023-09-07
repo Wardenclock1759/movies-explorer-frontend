@@ -1,4 +1,4 @@
-import {React, useEffect} from "react";
+import {React} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import image1 from "../../images/films1.png"
 import image2 from "../../images/flims2.png"

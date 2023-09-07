@@ -4,6 +4,7 @@ import NavTab from "../NavTab/NavTab";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
+import Footer from "../Footer/Footer";
 
 const Movies = ({loggedIn, handleIconClick}) => {
 
@@ -33,6 +34,7 @@ const Movies = ({loggedIn, handleIconClick}) => {
       {!isLoading &&
         <MoviesCardList/>
       }
+      <Footer/>
       <NavTab
         opened={sidebarOpen}
         handleClose={toggleSidebar}

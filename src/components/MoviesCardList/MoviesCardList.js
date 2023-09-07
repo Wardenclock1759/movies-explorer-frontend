@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useEffect} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import image1 from "../../images/films1.png"
 import image2 from "../../images/flims2.png"
@@ -35,6 +35,7 @@ const MoviesCardList = () => {
   const title15 = "Война искусств";
   const title16 = "Зона";
   const duration = "1ч 42м"
+
   return (
     <div className="list">
       <div className="list__wrapper">

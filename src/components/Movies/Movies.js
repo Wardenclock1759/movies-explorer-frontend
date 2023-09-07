@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, useEffect } from "react";
 import Header from "../Header/Header";
 import NavTab from "../NavTab/NavTab";
 import Preloader from "../Preloader/Preloader";
@@ -8,6 +8,11 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 const Movies = ({loggedIn, handleIconClick}) => {
 
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [isLoading, setisLoading] = useState(true);
+
+  useEffect(() => {
+    setisLoading(false);
+  }, []);
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
@@ -22,12 +27,16 @@ const Movies = ({loggedIn, handleIconClick}) => {
         handleMenuClick={toggleSidebar}
       />
       <SearchForm/>
-      <MoviesCardList/>
+      {isLoading &&
+        <Preloader/>
+      }
+      {!isLoading &&
+        <MoviesCardList/>
+      }
       <NavTab
         opened={sidebarOpen}
         handleClose={toggleSidebar}
       />
-      {/* <Preloader/> */}
     </>
   );
 }

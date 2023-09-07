@@ -35,3 +35,31 @@
 .list__button:hover {
   opacity: 0.8;
 }
+
+@media screen and (max-width: 1279px) {
+  .list {
+    margin: 0 30px;
+  }
+  
+  .list__wrapper {
+    grid-template-columns: repeat(2, 339px);
+    column-gap: 30px;
+    row-gap: 30px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .list {
+    padding: 50px 0 80px;
+    margin: 0 10px;
+  }
+  
+  .list__wrapper {
+    grid-template-columns: 300px;
+    row-gap: 34px;
+  }
+
+  .list__button {
+    width: 240px;
+  }
+}

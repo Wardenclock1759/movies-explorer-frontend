@@ -1,5 +1,4 @@
 .card {
-  width: 270px;
   min-height: 229px;
   display: flex;
   flex-direction: column;
@@ -28,6 +27,7 @@
 }
 
 .card__button {
+  padding: 0;
   background: none;
   border: none;
   cursor: pointer;
@@ -64,4 +64,34 @@
   font-style: normal;
   font-weight: 400;
   line-height: normal; 
+}
+
+@media screen and (max-width: 1279px) {
+  .card {
+    min-height: 268px;
+  }
+
+  .card__image {
+    width: 339px;
+    height: 190px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .card {
+    min-height: 245px;
+  }
+
+  .card__image {
+    width: 300px;
+    height: 168px;
+  }
+
+  .card__title {
+    font-size: 12px;
+  }
+
+  .card__duration {
+    font-size: 10px;
+  }
 }

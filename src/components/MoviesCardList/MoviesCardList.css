@@ -5,3 +5,33 @@
   flex-direction: column;
   border-top: 1px solid #424242;
 }
+
+.list__wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 270px);
+  column-gap: 20px;
+  row-gap: 38px;
+  justify-content: center;
+}
+
+.list__button {
+  margin-top: 60px;
+  padding: 0;
+  width: 320px;
+  height: 36px;
+  align-self: center;
+  cursor: pointer;
+  background: #2F2F2F;
+  border: none;
+  border-radius: 6px;
+  color: #FFF;
+  text-align: center;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.list__button:hover {
+  opacity: 0.8;
+}

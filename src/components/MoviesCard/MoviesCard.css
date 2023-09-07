@@ -1,0 +1,59 @@
+.card {
+  width: 270px;
+  min-height: 229px;
+  display: flex;
+  flex-direction: column;
+}
+
+.card__image {
+  width: 270px;
+  height: 151px;
+}
+
+.card__title-wrapper {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.card__title {
+  margin: 0;
+  width: 100%;
+  color: #FFF;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal; 
+}
+
+.card__button {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.card__button:hover {
+  opacity: 0.8;
+}
+
+.card__wrapper {
+  margin-top: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.card__line {
+  margin-bottom: 6px;
+  display: flex;
+  border-bottom: 1px solid #424242;
+}
+
+.card__duration {
+  margin: 0;
+  color: #8B8B8B;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal; 
+}

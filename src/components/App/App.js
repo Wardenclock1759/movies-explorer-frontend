@@ -7,6 +7,7 @@ import SavedMovies from '../SavedMovies/SavedMovies';
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import NotFound from '../NotFound/NotFound';
 
 const App = () => {
   const navigate = useNavigate();
@@ -28,6 +29,7 @@ const App = () => {
         <Route path="/profile" element={<ProfileEdit loggedIn={true} handleIconClick={handleIconClick}/>} />
         <Route path="/signup" element={<Register handleIconClick={handleIconClick}/>} />
         <Route path="/signin" element={<Login handleIconClick={handleIconClick}/>} />
+        <Route path="*" element={<NotFound/>} />
       </Routes>
     </main>
   );

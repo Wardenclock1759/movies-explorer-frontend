@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from 'react-router-dom';
+import Submit from "../Submit/Submit";
 
 const Register = ({handleIconClick}) => {
 
@@ -38,10 +39,12 @@ const Register = ({handleIconClick}) => {
           <span className="register__error"></span>
         </div>
       </form>
-      <button className="register__submit" type="submit">
-        Зарегистрироваться
-      </button>
-      <p className="register__text">Уже зарегистрированы? <span className="register__text register__text_link" onClick={handleLoginClick}>Войти</span></p>
+      <Submit
+        buttonText={"Зарегистрироваться"}
+        captionText={"Уже зарегистрированы?"}
+        linkText={"Войти"}
+        handleLinkClick={handleLoginClick}
+      />
     </div>
   );
 }

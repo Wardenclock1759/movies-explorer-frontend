@@ -7,7 +7,7 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-const Main = ({ loggedIn, handleIconClick, handleRegisterClick }) => {
+const Main = ({ loggedIn, handleIconClick, handleRegisterClick, handleLoginClick }) => {
   return (
     <>
     <Header
@@ -15,6 +15,7 @@ const Main = ({ loggedIn, handleIconClick, handleRegisterClick }) => {
       loggedIn={loggedIn}
       handleIconClick={handleIconClick}
       handleRegisterClick={handleRegisterClick}
+      handleLoginClick={handleLoginClick}
     />
     <Promo/>
     <AboutProject/>

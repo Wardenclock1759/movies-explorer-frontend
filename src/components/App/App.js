@@ -20,10 +20,14 @@ const App = () => {
     navigate('/signup', { replace: true });
   }
 
+  const handleLoginClick = () => {
+    navigate('/signin', { replace: true });
+  }
+
   return (
     <main className="page">
       <Routes>
-        <Route path="/" element={<Main handleIconClick={handleIconClick} handleRegisterClick={handleRegisterClick}/>} />
+        <Route path="/" element={<Main handleIconClick={handleIconClick} handleRegisterClick={handleRegisterClick} handleLoginClick={handleLoginClick}/>} />
         <Route path="/movies" element={<Movies loggedIn={true} handleIconClick={handleIconClick}/>} />
         <Route path="/saved-movies" element={<SavedMovies loggedIn={true} handleIconClick={handleIconClick}/>} />
         <Route path="/profile" element={<ProfileEdit loggedIn={true} handleIconClick={handleIconClick}/>} />

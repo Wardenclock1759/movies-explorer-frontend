@@ -11,7 +11,7 @@ const Footer = () => {
         <p className="footer__text">&copy; 2023</p>
         <div className="footer__links">
         <a className="footer__text footer__text_link"
-          href="https://github.com/Wardenclock1759"
+          href="https://practicum.yandex.ru/"
           target="_blank"
           rel="noreferrer">
           Яндекс.Практикум

@@ -5,6 +5,7 @@ import Submit from "../Submit/Submit";
 const Register = ({handleIconClick}) => {
 
   const navigate = useNavigate();
+  
   const handleLoginClick = () => {
     navigate("/signin");
   }

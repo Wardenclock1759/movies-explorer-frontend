@@ -6,6 +6,7 @@ import Movies from '../Movies/Movies';
 import SavedMovies from '../SavedMovies/SavedMovies';
 import ProfileEdit from '../ProfileEdit/ProfileEdit';
 import Register from '../Register/Register';
+import Login from '../Login/Login';
 
 const App = () => {
   const navigate = useNavigate();
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/saved-movies" element={<SavedMovies loggedIn={true} handleIconClick={handleIconClick}/>} />
         <Route path="/profile" element={<ProfileEdit loggedIn={true} handleIconClick={handleIconClick}/>} />
         <Route path="/signup" element={<Register handleIconClick={handleIconClick}/>} />
+        <Route path="/signin" element={<Login handleIconClick={handleIconClick}/>} />
       </Routes>
     </main>
   );

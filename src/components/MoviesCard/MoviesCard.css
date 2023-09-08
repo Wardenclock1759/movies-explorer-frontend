@@ -33,6 +33,16 @@
   cursor: pointer;
 }
 
+.card__button_close {
+  height: 24px;
+  width: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #313131;
+}
+
 .card__button svg path {
   fill: #FFF;
 }

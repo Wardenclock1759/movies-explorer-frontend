@@ -17,7 +17,7 @@ import image14 from "../../images/flims14.png"
 import image15 from "../../images/flims15.png"
 import image16 from "../../images/flims16.png"
 
-const MoviesCardList = () => {
+const MoviesCardList = ({isSaved = false}) => {
   const title1 = "33 слова о дизайне";
   const title2 = "Киноальманах «100 лет дизайна»";
   const title3 = "В погоне за Бенкси";
@@ -38,6 +38,7 @@ const MoviesCardList = () => {
 
   return (
     <div className="list">
+      {!isSaved &&
       <div className="list__wrapper">
         <MoviesCard
           isMain={true}
@@ -152,7 +153,35 @@ const MoviesCardList = () => {
           duration={duration}
         />
       </div>
-      <button className="list__button">Еще</button>
+      }
+      {!isSaved && 
+        <button className="list__button">Еще</button>
+      }
+      {isSaved && 
+        <div className="list__wrapper">
+          <MoviesCard
+            isMain={false}
+            isLiked={false}
+            title={title1}
+            image={image1}
+            duration={duration}
+          />
+          <MoviesCard
+            isMain={false}
+            isLiked={false}
+            title={title2}
+            image={image2}
+            duration={duration}
+          />
+          <MoviesCard
+            isMain={false}
+            isLiked={false}
+            title={title3}
+            image={image3}
+            duration={duration}
+          />
+        </div>
+      }
     </div>
   );
 }

@@ -7,13 +7,14 @@ import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 import Footer from '../Footer/Footer';
 
-const Main = ({ loggedIn, handleIconClick }) => {
+const Main = ({ loggedIn, handleIconClick, handleRegisterClick }) => {
   return (
     <>
     <Header
       sourceMain={true}
       loggedIn={loggedIn}
       handleIconClick={handleIconClick}
+      handleRegisterClick={handleRegisterClick}
     />
     <Promo/>
     <AboutProject/>

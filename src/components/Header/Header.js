@@ -2,7 +2,7 @@ import {React} from 'react';
 import Navigation from '../Navigation/Navigation';
 import Profile from '../Profile/Profile';
 
-const Header = ({ sourceMain = false, loggedIn = false, handleIconClick, handleMenuClick }) => {
+const Header = ({ sourceMain = false, loggedIn = false, handleIconClick, handleMenuClick, handleRegisterClick }) => {
   return (
     <header className={'header' + (sourceMain ? ' header_about' : '')}>
       <div className='header__nav-link'>
@@ -19,7 +19,7 @@ const Header = ({ sourceMain = false, loggedIn = false, handleIconClick, handleM
       </div>
       {!loggedIn &&
         <div className='header__profile-wrapper'>
-          <button className='header__button'>Регистрация</button>
+          <button className='header__button' onClick={handleRegisterClick}>Регистрация</button>
           <button className='header__button header__button_fill'>Войти</button>
         </div>
       }

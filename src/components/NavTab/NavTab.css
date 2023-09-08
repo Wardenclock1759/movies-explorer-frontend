@@ -66,6 +66,10 @@
   line-height: normal;
 }
 
+.navtab__link:last-child {
+  margin-bottom: 0;
+}
+
 .navtab__link_active {
   border-bottom: solid #FFF 2px;
 }
@@ -86,5 +90,9 @@
 
   .navtab__link_active {
     margin-bottom: 15px;
+  }
+
+  .navtab-wrapper {
+    margin-bottom: 444px;
   }
 }

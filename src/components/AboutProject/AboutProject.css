@@ -26,6 +26,7 @@
   display: grid;
   grid-template-columns: 550px 550px;
   column-gap: 40px;
+  justify-content: center;
 }
 
 .project__column {
@@ -66,6 +67,7 @@
   grid-template-columns: 228px 912px;
   grid-template-rows: 36px 17px;
   row-gap: 14px;
+  justify-content: center;
 }
 
 .project__timeline {

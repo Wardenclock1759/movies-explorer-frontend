@@ -15,7 +15,7 @@
 }
 
 .login__title {
-  margin: 40px 0;
+  margin: 38px 0;
   align-self: flex-start;
   color: #FFF;
   font-size: 24px;
@@ -25,11 +25,11 @@
 }
 
 .login__form {
-  margin-bottom: 71px;
+  margin-bottom: 67px;
   width: 396px;
   display: flex;
   flex-direction: column;
-  gap: 24px;
+  gap: 20px;
 }
 
 .login__row {

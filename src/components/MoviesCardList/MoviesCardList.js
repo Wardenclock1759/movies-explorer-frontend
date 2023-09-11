@@ -39,7 +39,7 @@ const MoviesCardList = ({isSaved = false}) => {
   return (
     <div className="list">
       {!isSaved &&
-      <div className="list__wrapper">
+      <ul className="list__wrapper">
         <MoviesCard
           isMain={true}
           isLiked={false}
@@ -152,7 +152,7 @@ const MoviesCardList = ({isSaved = false}) => {
           image={image16}
           duration={duration}
         />
-      </div>
+      </ul>
       }
       {!isSaved && 
         <button className="list__button" type='button'>Еще</button>

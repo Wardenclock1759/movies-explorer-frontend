@@ -23,19 +23,19 @@ const Register = ({handleIconClick}) => {
       <form className="register__form">
         <div className="register__row">
           <label className="register__label">Имя</label>
-          <input className="register__input" placeholder="Имя"/>
+          <input className="register__input" placeholder="Имя" min={2} max={30} required/>
           <span className="register__line"></span>
           <span className="register__error"></span>
         </div>
         <div className="register__row">
           <label className="register__label">E-mail</label>
-          <input className="register__input" placeholder="Почта"/>
+          <input className="register__input" placeholder="Почта" required/>
           <span className="register__line"></span>
           <span className="register__error"></span>
         </div>
         <div className="register__row">
           <label className="register__label">Пароль</label>
-          <input className="register__input" type="password" placeholder="Пароль"/>
+          <input className="register__input" type="password" placeholder="Пароль" min={1} required/>
           <span className="register__line"></span>
           <span className="register__error"></span>
         </div>

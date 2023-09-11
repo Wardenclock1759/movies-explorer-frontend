@@ -22,13 +22,13 @@ const Login = ({handleIconClick}) => {
       <form className="login__form">
         <div className="login__row">
           <label className="login__label">E-mail</label>
-          <input className="login__input" placeholder="Почта"/>
+          <input className="login__input" placeholder="Почта" required/>
           <span className="login__line"></span>
           <span className="login__error"></span>
         </div>
         <div className="login__row">
           <label className="login__label">Пароль</label>
-          <input className="login__input" type="password" placeholder="Пароль"/>
+          <input className="login__input" type="password" placeholder="Пароль" required/>
           <span className="login__line"></span>
           <span className="login__error"></span>
         </div>

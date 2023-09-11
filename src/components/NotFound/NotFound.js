@@ -14,13 +14,13 @@ const NotFound = ({toggleShowHeader, toggleShowFooter}) => {
   }
 
   return (
-    <div className="unknown">
+    <section className="unknown">
       <div className="unknown__wrapper">
         <h1 className="unknown__title">404</h1>
         <h2 className="unknown__subtitle">Страница не найдена</h2>
       </div>
       <button className="unknown__back" onClick={handleBackClick} type="button">Назад</button>
-    </div>
+    </section>
   );
 }
 

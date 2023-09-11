@@ -2,7 +2,7 @@ import React from "react";
 
 const Techs = () => {
   return (
-    <div className="techs">
+    <section className="techs">
       <h2 className="techs__title">
         Технологии
       </h2>
@@ -24,7 +24,7 @@ const Techs = () => {
         <li className="techs__tech">Express.js</li>
         <li className="techs__tech">mongoDB</li>
       </ul>
-    </div>
+    </section>
   );
 }
 

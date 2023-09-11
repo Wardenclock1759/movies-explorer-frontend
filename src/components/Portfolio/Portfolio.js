@@ -2,7 +2,7 @@ import React from "react";
 
 const Portfolio = () => {
   return (
-    <div className="portfolio">
+    <section className="portfolio">
       <h2 className="portfolio__title">
         Портфолио
       </h2>
@@ -37,7 +37,7 @@ const Portfolio = () => {
           <span className="portfolio__icon">↗</span>
         </a>
       </div>
-    </div>
+    </section>
   );
 }
 

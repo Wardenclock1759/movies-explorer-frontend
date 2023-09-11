@@ -2,7 +2,7 @@ import React from "react";
 
 const AboutProject = () => {
   return (
-    <div className="project">
+    <section className="project">
       <h2 className="project__title">
         О проекте
       </h2>
@@ -35,7 +35,7 @@ const AboutProject = () => {
           Front-end
         </p>
       </div>
-    </div>
+    </section>
   );
 }
 

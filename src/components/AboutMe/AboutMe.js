@@ -3,7 +3,7 @@ import profileImage from "../../images/profile.jpg";
 
 const AboutMe = () => {
   return (
-    <div className="about">
+    <section className="about">
       <h2 className="about__title">
         Студент
       </h2>
@@ -30,7 +30,7 @@ const AboutMe = () => {
         </div>
         <img className="about__image" src={profileImage} alt="Профессиональное фото"/>
       </div>
-    </div>
+    </section>
   );
 }
 

@@ -10,19 +10,11 @@ import Footer from '../Footer/Footer';
 const Main = ({ loggedIn, handleIconClick, handleRegisterClick, handleLoginClick }) => {
   return (
     <>
-    <Header
-      sourceMain={true}
-      loggedIn={loggedIn}
-      handleIconClick={handleIconClick}
-      handleRegisterClick={handleRegisterClick}
-      handleLoginClick={handleLoginClick}
-    />
     <Promo/>
     <AboutProject/>
     <Techs/>
     <AboutMe/>
     <Portfolio/>
-    <Footer/>
     </>
   );
 }

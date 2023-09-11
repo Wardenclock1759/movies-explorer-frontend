@@ -1,13 +1,20 @@
 import {React, useState} from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../Header/Header";
 import NavTab from "../NavTab/NavTab";
 
 const ProfileEdit = ({loggedIn, handleIconClick}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
+  const handleExitClick = () => {
+    navigate('/', {replace: true})
+  }
   
   return (
     <>
@@ -37,7 +44,7 @@ const ProfileEdit = ({loggedIn, handleIconClick}) => {
           </div>
         </form>
         <button className="edit__button edit__button_submit" type="submit">Редактировать</button>
-        <button className="edit__button edit__button_exit" type="button">Выйти из аккаунта</button>
+        <button className="edit__button edit__button_exit" type="button" onClick={handleExitClick}>Выйти из аккаунта</button>
       </div>
       <NavTab
         opened={sidebarOpen}

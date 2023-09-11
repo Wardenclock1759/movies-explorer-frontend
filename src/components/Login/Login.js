@@ -1,8 +1,13 @@
-import React from "react";
+import {React, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import Submit from "../Submit/Submit";
 
-const Login = ({handleIconClick}) => {
+const Login = ({handleIconClick,  toggleShowHeader, toggleShowFooter}) => {
+  useEffect(() => {
+    toggleShowHeader(false);
+    toggleShowFooter(false);
+  }, [toggleShowHeader, toggleShowFooter]);
+
   const navigate = useNavigate();
 
   const handleRegisterClick = () => {

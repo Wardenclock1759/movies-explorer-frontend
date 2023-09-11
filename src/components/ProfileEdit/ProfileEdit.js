@@ -2,14 +2,15 @@ import {React, useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import NavTab from "../NavTab/NavTab";
 
-const ProfileEdit = ({toggleLogin, toggleSource, toggleShowFooter}) => {
+const ProfileEdit = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     toggleLogin(true);
     toggleSource(false);
+    toggleShowHeader(true);
     toggleShowFooter(false);
-  }, [])
+  }, [toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter])
 
   const navigate = useNavigate();
 

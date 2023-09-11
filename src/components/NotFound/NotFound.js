@@ -1,10 +1,11 @@
 import {React, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 
-const NotFound = ({toggleShowFooter}) => {
+const NotFound = ({toggleShowHeader, toggleShowFooter}) => {
   useEffect(() => {
+    toggleShowHeader(false);
     toggleShowFooter(false);
-  }, [])
+  }, [toggleShowHeader, toggleShowFooter])
 
   const navigate = useNavigate();
   

@@ -14,6 +14,8 @@ import Footer from '../Footer/Footer';
 const App = () => {
   const [sourceMain, setSourceMain] = useState(true);
   const [loggedIn, setLoggedin] = useState(false);
+
+  const [showHeader, setshowHeader] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
 
   const toggleSource = (value = true) => {
@@ -26,6 +28,10 @@ const App = () => {
 
   const toggleShowFooter = (value = true) => {
     setShowFooter(value);
+  };
+
+  const toggleShowHeader = (value = true) => {
+    setshowHeader(value);
   };
 
   const navigate = useNavigate();
@@ -44,6 +50,8 @@ const App = () => {
 
   return (
     <>
+    {
+      showHeader && 
       <Header
         sourceMain={sourceMain}
         loggedIn={loggedIn}
@@ -51,15 +59,16 @@ const App = () => {
         handleRegisterClick={handleRegisterClick}
         handleLoginClick={handleLoginClick}
       />
+    }
       <main className="page">
         <Routes>
-          <Route path="/" element={<Main toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/movies" element={<Movies toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/saved-movies" element={<SavedMovies toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/profile" element={<ProfileEdit toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowFooter={toggleShowFooter} handleIconClick={handleIconClick}/>} />
-          <Route path="/signup" element={<Register handleIconClick={handleIconClick} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/signin" element={<Login handleIconClick={handleIconClick} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="*" element={<NotFound toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/" element={<Main toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/movies" element={<Movies toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/saved-movies" element={<SavedMovies toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/profile" element={<ProfileEdit toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/signup" element={<Register handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/signin" element={<Login handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="*" element={<NotFound toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
         </Routes>
       </main>
       {showFooter && <Footer/>}

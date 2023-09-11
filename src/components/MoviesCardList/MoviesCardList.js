@@ -155,7 +155,7 @@ const MoviesCardList = ({isSaved = false}) => {
       </div>
       }
       {!isSaved && 
-        <button className="list__button">Еще</button>
+        <button className="list__button" type='button'>Еще</button>
       }
       {isSaved && 
         <div className="list__wrapper">

@@ -109,6 +109,7 @@
   .techs {
     padding: 70px 18px;
     height: 651px;
+    background: #202020;
   }
 
   .techs__title {
@@ -118,10 +119,11 @@
 
   .techs__line {
     margin-top: 28px;
+    border-bottom: 1px solid #000;
   }
 
   .techs__wrapper {
-    margin: 60px 0 50px;
+    margin: 50px 0 50px;
   }
 
   .techs__subtitle {
@@ -130,7 +132,7 @@
   }
 
   .techs__text {
-    margin-top: 24px;
+    margin-top: 14px;
     width: 292px;
     font-size: 11px;
     line-height: 16px;

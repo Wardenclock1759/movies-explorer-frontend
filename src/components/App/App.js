@@ -14,6 +14,7 @@ import Footer from '../Footer/Footer';
 const App = () => {
   const [sourceMain, setSourceMain] = useState(true);
   const [loggedIn, setLoggedin] = useState(false);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   const [showHeader, setshowHeader] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
@@ -32,6 +33,10 @@ const App = () => {
 
   const toggleShowHeader = (value = true) => {
     setshowHeader(value);
+  };
+
+  const toggleSidebar = () => {
+    setSidebarOpen(!sidebarOpen);
   };
 
   const navigate = useNavigate();
@@ -55,6 +60,7 @@ const App = () => {
       <Header
         sourceMain={sourceMain}
         loggedIn={loggedIn}
+        handleMenuClick={toggleSidebar}
         handleIconClick={handleIconClick}
         handleRegisterClick={handleRegisterClick}
         handleLoginClick={handleLoginClick}
@@ -63,9 +69,9 @@ const App = () => {
       <main className="page">
         <Routes>
           <Route path="/" element={<Main toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/movies" element={<Movies toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/saved-movies" element={<SavedMovies toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/profile" element={<ProfileEdit toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/movies" element={<Movies sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/saved-movies" element={<SavedMovies sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/profile" element={<ProfileEdit sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="/signup" element={<Register handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="/signin" element={<Login handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="*" element={<NotFound toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />

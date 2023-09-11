@@ -4,9 +4,8 @@ import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-const Movies = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter}) => {
+const Movies = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
 
-  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
@@ -15,11 +14,7 @@ const Movies = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter})
     toggleSource(false);
     toggleShowHeader(true);
     toggleShowFooter(true);
-  }, [toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter]);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
+  }, [toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter]);  
 
   return (
     <>

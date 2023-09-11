@@ -67,8 +67,10 @@
 
 @media screen and (max-width: 768px) {
   .search {
-    margin: 80px 30px;
+    margin: 80px 30px 109px;
     padding: 16px 20px 16px 19px;
+    height: 72px;
+    box-sizing: border-box;
   }
   
   .search__form {

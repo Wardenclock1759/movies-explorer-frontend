@@ -71,6 +71,20 @@
   border-bottom: 1px solid #424242;
 }
 
+@media screen and (max-width: 768px) {
+  .register {
+    margin: 232px auto 30px;
+  }
+
+  .register__title {
+    margin: 38px 0;
+  }
+
+  .register__form {
+    gap: 20px;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .register {
     margin: 56px auto 30px;

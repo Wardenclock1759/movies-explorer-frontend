@@ -24,7 +24,7 @@ const ProfileEdit = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFoo
   
   return (
     <>
-      <div className="edit">
+      <section className="edit">
         <h1 className="edit__title">
           Привет, Михаил!
         </h1>
@@ -45,7 +45,7 @@ const ProfileEdit = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFoo
         </form>
         <button className="edit__button edit__button_submit" type="submit">Редактировать</button>
         <button className="edit__button edit__button_exit" type="button" onClick={handleExitClick}>Выйти из аккаунта</button>
-      </div>
+      </section>
       <NavTab
         opened={sidebarOpen}
         handleClose={toggleSidebar}

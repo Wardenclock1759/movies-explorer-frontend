@@ -87,6 +87,17 @@
   line-height: normal;
 }
 
+@media screen and (max-width: 768px) {
+  .edit {
+    padding-top: 236px;
+    padding-bottom: 40px;
+  }
+
+  .edit__form {
+    margin: 96px auto 210px;
+  }
+}
+
 @media screen and (max-width: 500px) {
   .edit {
     padding-top: 70px;

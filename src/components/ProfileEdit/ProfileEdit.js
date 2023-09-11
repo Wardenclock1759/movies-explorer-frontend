@@ -1,10 +1,15 @@
-import {React, useState} from "react";
+import {React, useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "../Header/Header";
 import NavTab from "../NavTab/NavTab";
 
-const ProfileEdit = ({loggedIn, handleIconClick}) => {
+const ProfileEdit = ({toggleLogin, toggleSource, toggleShowFooter}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+
+  useEffect(() => {
+    toggleLogin(true);
+    toggleSource(false);
+    toggleShowFooter(false);
+  }, [])
 
   const navigate = useNavigate();
 
@@ -18,12 +23,6 @@ const ProfileEdit = ({loggedIn, handleIconClick}) => {
   
   return (
     <>
-      <Header
-        sourceMain={false}
-        loggedIn={loggedIn}
-        handleIconClick={handleIconClick}
-        handleMenuClick={toggleSidebar}
-      />
       <div className="edit">
         <h1 className="edit__title">
           Привет, Михаил!

@@ -1,13 +1,17 @@
-import {React} from 'react';
-import Header from '../Header/Header';
+import {React, useEffect} from 'react';
 import Promo from '../Promo/Promo';
 import AboutProject from '../AboutProject/AboutProject';
 import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
-import Footer from '../Footer/Footer';
 
-const Main = ({ loggedIn, handleIconClick, handleRegisterClick, handleLoginClick }) => {
+const Main = ({toggleLogin, toggleSource, toggleShowFooter}) => {
+  useEffect(() => {
+    toggleLogin(false);
+    toggleShowFooter(true);
+    toggleSource(true);
+  }, []);
+
   return (
     <>
     <Promo/>

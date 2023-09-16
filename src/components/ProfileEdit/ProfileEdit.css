@@ -1,0 +1,119 @@
+.edit {
+  padding-top: 74px;
+  padding-bottom: 70px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  color: #FFF;
+}
+
+.edit__title {
+  margin: 0;
+  text-align: center;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.edit__form {
+  width: 410px;
+  margin: 123px auto 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.edit__row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.edit__subtitle {
+  margin: 0;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal; 
+}
+
+.edit__line {
+  display: flex;
+  border-bottom: 1px solid #424242;
+}
+
+.edit__input {
+  margin: 0;
+  width: 200px;
+  background: none;
+  border: none;
+  outline: none;
+  color: #FFF;
+  text-align: right;
+  font-size: 11px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+}
+
+.edit__button {
+  padding: 0;
+  width: fit-content;
+  display: flex;
+  align-self: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.edit__button:hover {
+  opacity: 0.8;
+}
+
+.edit__button_submit {
+  color: #FFF;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal; 
+}
+
+.edit__button_exit {
+  margin-top: 16px;
+  color: #EE3465;
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+@media screen and (max-width: 768px) {
+  .edit {
+    padding-top: 236px;
+    padding-bottom: 40px;
+  }
+
+  .edit__form {
+    margin: 96px auto 210px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .edit {
+    padding-top: 70px;
+    padding-bottom: 40px;
+  }
+
+  .edit__form {
+    width: 260px;
+    margin: 80px auto 379px;
+  }
+  
+  .edit__button_submit {
+    font-size: 12px;
+  }
+  
+  .edit__button_exit {
+    font-size: 12px;
+  }
+}

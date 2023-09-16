@@ -1,0 +1,98 @@
+.navtab {
+  position: fixed;
+  display: flex;
+  justify-content: right;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s linear, visibility 0.3s;
+  z-index: 2;
+}
+
+.navtab_opened {
+  visibility: visible;
+  opacity: 1;
+}
+
+.navtab__container {
+  width: 520px;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: auto;
+  background: #202020;
+  cursor: default;
+  z-index: 3;
+}
+
+.navtab__close {
+  padding: 0;
+  margin-top: 22px;
+  margin-right: 22px;
+  height: 32px;
+  width: 32px;
+  align-self: flex-end;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.navtab__close:hover {
+  opacity: 0.8;
+}
+
+.navtab-wrapper {
+  margin-top: 105px;
+  margin-bottom: 595px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.navtab__link {
+  height: 26px;
+  width: fit-content;
+  margin-bottom: 24px;
+  color: #FFF;
+  text-decoration: none;
+  font-feature-settings: 'clig' off, 'liga' off;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.navtab__link:last-child {
+  margin-bottom: 0;
+}
+
+.navtab__link_active {
+  border-bottom: solid #FFF 2px;
+}
+
+.navtab__link:hover {
+  opacity: .7;
+}
+
+@media screen and (max-width: 320px) {
+  .navtab__close {
+    margin-top: 11px;
+    margin-right: 14px;
+  }
+
+  .navtab-wrapper {
+    margin-top: 100px;
+  }
+
+  .navtab__link_active {
+    margin-bottom: 15px;
+  }
+
+  .navtab-wrapper {
+    margin-bottom: 444px;
+  }
+}

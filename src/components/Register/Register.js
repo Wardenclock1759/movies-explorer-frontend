@@ -1,8 +1,47 @@
-import {React, useEffect} from "react";
+import {React, useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import Submit from "../Submit/Submit";
 
-const Register = ({handleIconClick, toggleShowHeader, toggleShowFooter}) => {
+const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShowFooter}) => {
+
+  const [formValue, setFormValue] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const [validationErrors, setValidationErrors] = useState({
+    name: 'Name must be at least 2 characters long.',
+    email: 'Invalid email address.',
+    password: 'Password must be at least 1 characters long.',
+  });
+
+  const validateName = (name) => {
+    if (name.length < 2) {
+      return 'Name must be at least 2 characters long.';
+    }
+    return '';
+  };
+  
+  const validateEmail = (email) => {
+    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+    if (!regex.test(email)) {
+      return 'Invalid email address.';
+    }
+    return '';
+  };
+  
+  const validatePassword = (password) => {
+    if (password.length < 1) {
+      return 'Password must be at least 1 characters long.';
+    }
+    return '';  
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleRegister(formValue.name, formValue.email, formValue.password);
+  }
 
   useEffect(() => {
     toggleShowHeader(false);
@@ -28,19 +67,49 @@ const Register = ({handleIconClick, toggleShowHeader, toggleShowFooter}) => {
       <form className="register__form">
         <div className="register__row">
           <label className="register__label">Имя</label>
-          <input className="register__input" placeholder="Имя" min={2} max={30} required/>
+          <input className="register__input" placeholder="Имя" min={2} max={30} required 
+          onChange={(e) => {
+              setFormValue({
+                ...formValue,
+                name: e.target.value,
+              });
+              setValidationErrors({
+                ...validationErrors,
+                name: validateName(e.target.value),
+              });
+          }}/>
           <span className="register__line"></span>
           <span className="register__error"></span>
         </div>
         <div className="register__row">
           <label className="register__label">E-mail</label>
-          <input className="register__input" placeholder="Почта" required/>
+          <input className="register__input" placeholder="Почта" required
+          onChange={(e) => {
+              setFormValue({
+                ...formValue,
+                email: e.target.value,
+              });
+              setValidationErrors({
+                ...validationErrors,
+                email: validateEmail(e.target.value),
+              });
+          }}/>
           <span className="register__line"></span>
           <span className="register__error"></span>
         </div>
         <div className="register__row">
           <label className="register__label">Пароль</label>
-          <input className="register__input" type="password" placeholder="Пароль" min={1} required/>
+          <input className="register__input" type="password" placeholder="Пароль" min={1} required
+          onChange={(e) => {
+              setFormValue({
+                ...formValue,
+                password: e.target.value,
+              });
+              setValidationErrors({
+                ...validationErrors,
+                password: validatePassword(e.target.value),
+              });
+          }}/>
           <span className="register__line"></span>
           <span className="register__error"></span>
         </div>
@@ -49,7 +118,9 @@ const Register = ({handleIconClick, toggleShowHeader, toggleShowFooter}) => {
         buttonText={"Зарегистрироваться"}
         captionText={"Уже зарегистрированы?"}
         linkText={"Войти"}
+        disabled={Object.values(validationErrors).some((error) => error !== '')}
         handleLinkClick={handleLoginClick}
+        handleClick={handleSubmit}
       />
     </div>
   );

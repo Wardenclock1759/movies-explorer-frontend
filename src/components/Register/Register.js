@@ -2,6 +2,8 @@ import {React, useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import Submit from "../Submit/Submit";
 
+var reactEmailValidator = require("react-email-validator");
+
 const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShowFooter}) => {
 
   const [formValue, setFormValue] = useState({
@@ -28,8 +30,7 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
   };
   
   const validateEmail = (email) => {
-    const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
-    if (!regex.test(email)) {
+    if(!reactEmailValidator.validate(email)){
       return 'Проверьте адрес электронной почты';
     }
     return '';

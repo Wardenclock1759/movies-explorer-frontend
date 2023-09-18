@@ -11,14 +11,18 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
   });
 
   const [validationErrors, setValidationErrors] = useState({
-    name: 'Name must be at least 2 characters long.',
-    email: 'Invalid email address.',
-    password: 'Password must be at least 1 characters long.',
+    name: '',
+    email: '',
+    password: '',
   });
 
   const validateName = (name) => {
-    if (name.length < 2) {
-      return 'Name must be at least 2 characters long.';
+    const len = name.length;
+    if (len > 0 && len < 2) {
+      return 'Имя должно быть минимум 2 символа';
+    }
+    if (len > 30) {
+      return 'Имя должно быть меньше 30 символов';
     }
     return '';
   };
@@ -26,16 +30,16 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
   const validateEmail = (email) => {
     const regex = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
     if (!regex.test(email)) {
-      return 'Invalid email address.';
+      return 'Проверьте адрес электронной почты';
     }
     return '';
   };
   
   const validatePassword = (password) => {
     if (password.length < 1) {
-      return 'Password must be at least 1 characters long.';
+      return 'Пароль должен быть минимум один символ';
     }
-    return '';  
+    return '';
   };
 
   const handleSubmit = (e) => {
@@ -67,7 +71,7 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
       <form className="register__form">
         <div className="register__row">
           <label className="register__label">Имя</label>
-          <input className="register__input" placeholder="Имя" min={2} max={30} required 
+          <input className="register__input" placeholder="Имя" min={2} max={30} required
           onChange={(e) => {
               setFormValue({
                 ...formValue,
@@ -79,7 +83,7 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
               });
           }}/>
           <span className="register__line"></span>
-          <span className="register__error"></span>
+          <span className="register__error">{validationErrors.name}</span>
         </div>
         <div className="register__row">
           <label className="register__label">E-mail</label>
@@ -95,7 +99,7 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
               });
           }}/>
           <span className="register__line"></span>
-          <span className="register__error"></span>
+          <span className="register__error">{validationErrors.email}</span>
         </div>
         <div className="register__row">
           <label className="register__label">Пароль</label>
@@ -111,14 +115,14 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
               });
           }}/>
           <span className="register__line"></span>
-          <span className="register__error"></span>
+          <span className="register__error">{validationErrors.password}</span>
         </div>
       </form>
       <Submit
         buttonText={"Зарегистрироваться"}
         captionText={"Уже зарегистрированы?"}
         linkText={"Войти"}
-        disabled={Object.values(validationErrors).some((error) => error !== '')}
+        disabled={Object.values(validationErrors).some((error) => error !== '') || Object.values(formValue).some((value) => value === '')}
         handleLinkClick={handleLoginClick}
         handleClick={handleSubmit}
       />

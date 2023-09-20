@@ -5,7 +5,7 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesApi from "../../utils/MoviesApi"
 
-const Movies = ({toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
+const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
 
   const [isLoading, setisLoading] = useState(true);
   const [movies, setMovies] = useState([]);
@@ -39,6 +39,8 @@ const Movies = ({toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar
       <NavTab
         opened={sidebarOpen}
         handleClose={toggleSidebar}
+        logout={logout}
+        handleClick={handleClick}
       />
     </>
   );

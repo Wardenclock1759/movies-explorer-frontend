@@ -1,18 +1,12 @@
-import {React, useState, useEffect} from "react";
+import {React, useEffect} from "react";
 import NavTab from "../NavTab/NavTab";
 
-const ProfileEdit = ({handleLogout, toggleSource, toggleShowHeader, toggleShowFooter}) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-
+const ProfileEdit = ({handleLogout, sidebarOpen, logout, handleClick, toggleSidebar, toggleSource, toggleShowHeader, toggleShowFooter}) => {
   useEffect(() => {
     toggleSource(false);
     toggleShowHeader(true);
     toggleShowFooter(false);
   }, [toggleSource, toggleShowHeader, toggleShowFooter])
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
   
   return (
     <>
@@ -41,6 +35,8 @@ const ProfileEdit = ({handleLogout, toggleSource, toggleShowHeader, toggleShowFo
       <NavTab
         opened={sidebarOpen}
         handleClose={toggleSidebar}
+        logout={logout}
+        handleClick={handleClick}
       />
     </>
   );

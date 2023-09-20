@@ -4,21 +4,15 @@ import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-const SavedMovies = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter}) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+const SavedMovies = ({sidebarOpen, toggleSidebar, handleClick, logout, toggleSource, toggleShowHeader, toggleShowFooter}) => {
   const [isLoading, setisLoading] = useState(true);
 
   useEffect(() => {
     setisLoading(false);
-    toggleLogin(true);
     toggleSource(false);
     toggleShowHeader(true);
     toggleShowFooter(true);
-  }, [toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter]);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
+  }, [toggleSource, toggleShowHeader, toggleShowFooter]);
 
   return (
     <>
@@ -35,6 +29,8 @@ const SavedMovies = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFoo
       <NavTab
         opened={sidebarOpen}
         handleClose={toggleSidebar}
+        logout={logout}
+        handleClick={handleClick}
       />
     </>
   );

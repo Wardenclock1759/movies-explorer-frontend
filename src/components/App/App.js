@@ -12,6 +12,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 import MainApi from '../../utils/MainApi';
+import ProtectedRoute from '../ProtectedRoute';
 
 const App = () => {
   const [sourceMain, setSourceMain] = useState(true);
@@ -72,13 +73,43 @@ const handleTokenCheck = () => {
 }
 
 const handleRegister = (name, email, password) => {
-  MainApi.register(name, email, password).then((res) => {
+  MainApi.register(name, email, password).then(() => {
     setRegisterSuccess(true);
+    setLoggedin(true);
     console.log('Register OK')
-  }).catch((err) => {
+    navigate('/movies', {replace: true});
+  }).catch(() => {
     setRegisterSuccess(false);
+    setLoggedin(false);
   });
 }
+
+const handleLogin = (email, password) => {
+  MainApi.authorize(email, password)
+    .then(() => {
+      setEmail(email);
+      setLoggedin(true);
+      navigate('/movies', { replace: true });
+  }).catch(() => {
+      setRegisterSuccess(false); 
+  });
+}
+
+
+const onLogOut = async () => {
+  try {
+    await MainApi.logout();
+    setLoggedin(false);
+    navigate('/signin', { replace: true });
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+const handleProfileClick = () => {
+  setLoggedin(true);
+  navigate('/profile', { replace: true });
+};
 
   return (
     <>
@@ -91,16 +122,17 @@ const handleRegister = (name, email, password) => {
         handleIconClick={handleIconClick}
         handleRegisterClick={handleRegisterClick}
         handleLoginClick={handleLoginClick}
+        handleClick={handleProfileClick}
       />
     }
       <main className="page">
         <Routes>
-          <Route path="/" element={<Main toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/movies" element={<Movies sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/saved-movies" element={<SavedMovies sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/profile" element={<ProfileEdit sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/" element={<Main toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/movies" element={<ProtectedRoute element={Movies} loggedIn={loggedIn} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} loggedIn={loggedIn} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/profile" element={<ProtectedRoute element={ProfileEdit} loggedIn={loggedIn} handleLogout={onLogOut} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="/signup" element={<Register handleRegister={handleRegister} handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/signin" element={<Login handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/signin" element={<Login handleLogin={handleLogin} handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="*" element={<NotFound toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
         </Routes>
       </main>

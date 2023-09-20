@@ -29,6 +29,7 @@ const SavedMovies = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFoo
       {!isLoading &&
         <MoviesCardList
           isSaved={true}
+          movies={[]}
         />
       }
       <NavTab

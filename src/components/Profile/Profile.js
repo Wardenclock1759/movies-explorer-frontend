@@ -1,15 +1,8 @@
 import React from "react";
-import {useNavigate} from 'react-router-dom';
 
-const Profile = ({ profileName = '', isMenu = false }) => {
-  
-  const navigate = useNavigate();
-  const handleProfileClick = () => {
-    navigate('/profile', { replace: true });
-  }
-
+const Profile = ({ profileName = '', isMenu = false, handleClick }) => {
   return (
-    <div className={'profile' + (isMenu ? ' profile_visible' : '')} onClick={handleProfileClick}>
+    <div className={'profile' + (isMenu ? ' profile_visible' : '')} onClick={handleClick}>
       <h2 className='profile__title'>{profileName}</h2>
       <span className='profile__icon'>
         <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">

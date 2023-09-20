@@ -74,14 +74,14 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
           <label className="register__label">Имя</label>
           <input className="register__input" placeholder="Имя" min={2} max={30} required
           onChange={(e) => {
-              setFormValue({
-                ...formValue,
-                name: e.target.value,
-              });
-              setValidationErrors({
-                ...validationErrors,
-                name: validateName(e.target.value),
-              });
+            setFormValue({
+              ...formValue,
+              name: e.target.value,
+            });
+            setValidationErrors({
+              ...validationErrors,
+              name: validateName(e.target.value),
+            });
           }}/>
           <span className="register__line"></span>
           <span className="register__error">{validationErrors.name}</span>
@@ -90,14 +90,14 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
           <label className="register__label">E-mail</label>
           <input className="register__input" placeholder="Почта" required
           onChange={(e) => {
-              setFormValue({
-                ...formValue,
-                email: e.target.value,
-              });
-              setValidationErrors({
-                ...validationErrors,
-                email: validateEmail(e.target.value),
-              });
+            setFormValue({
+              ...formValue,
+              email: e.target.value,
+            });
+            setValidationErrors({
+              ...validationErrors,
+              email: validateEmail(e.target.value),
+            });
           }}/>
           <span className="register__line"></span>
           <span className="register__error">{validationErrors.email}</span>
@@ -106,14 +106,14 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
           <label className="register__label">Пароль</label>
           <input className="register__input" type="password" placeholder="Пароль" min={1} required
           onChange={(e) => {
-              setFormValue({
-                ...formValue,
-                password: e.target.value,
-              });
-              setValidationErrors({
-                ...validationErrors,
-                password: validatePassword(e.target.value),
-              });
+            setFormValue({
+              ...formValue,
+              password: e.target.value,
+            });
+            setValidationErrors({
+              ...validationErrors,
+              password: validatePassword(e.target.value),
+            });
           }}/>
           <span className="register__line"></span>
           <span className="register__error">{validationErrors.password}</span>

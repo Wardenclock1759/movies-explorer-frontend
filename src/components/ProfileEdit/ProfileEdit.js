@@ -1,26 +1,18 @@
 import {React, useState, useEffect} from "react";
-import { useNavigate } from "react-router-dom";
 import NavTab from "../NavTab/NavTab";
 
-const ProfileEdit = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter}) => {
+const ProfileEdit = ({handleLogout, toggleSource, toggleShowHeader, toggleShowFooter}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
-    toggleLogin(true);
     toggleSource(false);
     toggleShowHeader(true);
     toggleShowFooter(false);
-  }, [toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter])
-
-  const navigate = useNavigate();
+  }, [toggleSource, toggleShowHeader, toggleShowFooter])
 
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
-
-  const handleExitClick = () => {
-    navigate('/', {replace: true})
-  }
   
   return (
     <>
@@ -44,7 +36,7 @@ const ProfileEdit = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFoo
           </div>
         </form>
         <button className="edit__button edit__button_submit" type="submit">Редактировать</button>
-        <button className="edit__button edit__button_exit" type="button" onClick={handleExitClick}>Выйти из аккаунта</button>
+        <button className="edit__button edit__button_exit" type="button" onClick={handleLogout}>Выйти из аккаунта</button>
       </section>
       <NavTab
         opened={sidebarOpen}

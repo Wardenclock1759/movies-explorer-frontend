@@ -5,17 +5,16 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesApi from "../../utils/MoviesApi"
 
-const Movies = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
+const Movies = ({toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
 
   const [isLoading, setisLoading] = useState(true);
   const [movies, setMovies] = useState([]);
 
   useEffect(() => {
-    toggleLogin(true);
     toggleSource(false);
     toggleShowHeader(true);
     toggleShowFooter(true);
-  }, [toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter]);
+  }, [toggleSource, toggleShowHeader, toggleShowFooter]);
 
   useEffect(() => {
     MoviesApi.getMovies()

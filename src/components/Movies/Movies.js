@@ -11,6 +11,7 @@ const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShow
   const [isLoading, setisLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [userMovies, setUserMovies] = useState([]);
+  const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
 
   useEffect(() => {
     toggleSource(false);
@@ -38,12 +39,12 @@ const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShow
 
   return (
     <>
-      <SearchForm/>
+      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked}/>
       {isLoading &&
         <Preloader/>
       }
       {!isLoading &&
-        <MoviesCardList movies={movies} userMovies={userMovies}/>
+        <MoviesCardList movies={movies} userMovies={userMovies} isShort={isShortFilmChecked}/>
       }
       <NavTab
         opened={sidebarOpen}

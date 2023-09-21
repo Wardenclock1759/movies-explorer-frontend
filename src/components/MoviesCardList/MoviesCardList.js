@@ -1,17 +1,21 @@
 import {React, useState, useEffect} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete}) => {
-
+const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, isShort}) => {
+  
   const [limit, setLimit] = useState(16);
   const [increment, setIncrement] = useState(0);
   const [showAddButton, setShowAddButton] = useState(false);
-
+  
+  const filteredMovies = isShort
+    ? movies.filter((movie) => movie.duration <= 40)
+    : movies;
+    
   useEffect(() => {
     const width = window.innerWidth;
     changeResolution(width);
-    setShowAddButton(displayed >= movies.length);
-  }, [movies]);
+    setShowAddButton(displayed >= filteredMovies.length);
+  }, [filteredMovies]);
 
   useEffect(() => {
     let timeout;
@@ -28,6 +32,7 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete}) 
 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
 
   let displayed = 0;
 
@@ -52,7 +57,7 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete}) 
   const handleMoreClick = () => {
     setLimit(limit + increment);
     displayed += increment;
-    setShowAddButton(displayed >= movies.length);
+    setShowAddButton(displayed >= filteredMovies.length);
   }
 
   function toHoursAndMinutes(durationInMinutes) {
@@ -69,8 +74,8 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete}) 
   return (
     <div className="list">
       <ul className="list__wrapper">
-        {movies.length > 0 && displayed <= limit && 
-        movies.slice(0, limit).map((movie) => {
+        {filteredMovies.length > 0 && displayed <= limit && 
+        filteredMovies.slice(0, limit).map((movie) => {
           displayed += 1;
           const imageURL = isSaved ? movie.image : `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
           const movieId = isSaved ? movie.movieId : movie.id;

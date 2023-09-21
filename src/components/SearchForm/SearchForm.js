@@ -1,7 +1,12 @@
 import React from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-const SearchForm = () => {
+const SearchForm = ({setIsShortFilmChecked}) => {
+
+  const handleCheckboxChange = (e) => {
+    setIsShortFilmChecked(e.target.checked);
+  };
+
   return (
     <div className="search">
       <div className="search__form-wrapper">
@@ -18,7 +23,7 @@ const SearchForm = () => {
         </form>
       </div>
       <span className="search__line"></span>
-      <FilterCheckbox/>
+      <FilterCheckbox handleCheckboxChange={handleCheckboxChange}/>
     </div>
   );
 }

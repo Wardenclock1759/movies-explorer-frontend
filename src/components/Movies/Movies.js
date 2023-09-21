@@ -4,11 +4,13 @@ import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesApi from "../../utils/MoviesApi"
+import MainApi from "../../utils/MainApi"
 
 const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
 
   const [isLoading, setisLoading] = useState(true);
   const [movies, setMovies] = useState([]);
+  const [userMovies, setUserMovies] = useState([]);
 
   useEffect(() => {
     toggleSource(false);
@@ -20,6 +22,13 @@ const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShow
     MoviesApi.getMovies()
     .then((Movies) => {
       setMovies(Movies);
+    })
+    .catch((error) => {
+      console.error(`Error fetching movies data: ${error}`);
+    });
+    MainApi.getSavedMovies()
+    .then((Movies) => {
+      setUserMovies(Movies);
       setisLoading(false);
     })
     .catch((error) => {
@@ -34,7 +43,7 @@ const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShow
         <Preloader/>
       }
       {!isLoading &&
-        <MoviesCardList movies={movies}/>
+        <MoviesCardList movies={movies} userMovies={userMovies}/>
       }
       <NavTab
         opened={sidebarOpen}

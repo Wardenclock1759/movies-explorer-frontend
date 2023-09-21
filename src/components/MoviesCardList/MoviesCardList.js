@@ -1,11 +1,33 @@
 import {React, useState, useEffect} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-const MoviesCardList = ({movies}) => {
+const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete}) => {
 
   const [limit, setLimit] = useState(16);
   const [increment, setIncrement] = useState(0);
   const [showAddButton, setShowAddButton] = useState(false);
+
+  useEffect(() => {
+    const width = window.innerWidth;
+    changeResolution(width);
+    setShowAddButton(displayed >= movies.length);
+  }, [movies]);
+
+  useEffect(() => {
+    let timeout;
+    const handleResize = () => {
+      clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        const width = window.innerWidth;
+        changeResolution(width);
+        setShowAddButton(displayed >= movies.length);
+      }, 200);
+    }
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   let displayed = 0;
 
@@ -22,26 +44,10 @@ const MoviesCardList = ({movies}) => {
     }
   }
 
-  useEffect(() => {
-    const width = window.innerWidth;
-    changeResolution(width);
-    setShowAddButton(displayed > movies.length);
-  }, [displayed, movies]);
-
-  useEffect(() => {
-    let timeout;
-    const handleResize = () => {
-      clearTimeout(timeout);
-
-      timeout = setTimeout(() => {
-        const width = window.innerWidth;
-        changeResolution(width);
-      }, 200);
-    }
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  function findLike(id) {
+    if (!userMovies) return false;
+    return userMovies.some((movie) => movie.movieId === id);
+  }
 
   const handleMoreClick = () => {
     setLimit(limit + increment);
@@ -66,19 +72,30 @@ const MoviesCardList = ({movies}) => {
         {movies.length > 0 && displayed <= limit && 
         movies.slice(0, limit).map((movie) => {
           displayed += 1;
+          const imageURL = isSaved ? movie.image : `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
+          const movieId = isSaved ? movie.movieId : movie.id;
+          const liked = findLike(movieId);
+
           return <MoviesCard
-            isMain={true}
-            isLiked={false}
+            isMain={!isSaved}
+            isLiked={liked}
             title={movie.nameRU}
-            image={`https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`}
+            image={imageURL}
             duration={toHoursAndMinutes(movie.duration)}
-            key={movie.id}
+            key={movieId}
+            id={movieId}
+            movie={movie}
+            handleDeleteClick={handleDelete}
           />
           })
         }
       </ul>
       {!showAddButton && 
         <button className="list__button" type='button' onClick={handleMoreClick}>Еще</button>
+      }
+      {
+        movies.length === 0 &&
+        <p className="list__info">Фильмы не найдены</p>
       }
     </div>
   );

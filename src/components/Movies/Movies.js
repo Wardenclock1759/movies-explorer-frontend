@@ -41,7 +41,6 @@ const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShow
   useEffect(() => {
     const savedSwitcherValue = localStorage.getItem("isShortFilmChecked");
     if (savedSwitcherValue !== null) {
-      console.log(JSON.parse(savedSwitcherValue))
       setIsShortFilmChecked(JSON.parse(savedSwitcherValue));
     }
 

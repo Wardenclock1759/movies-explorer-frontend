@@ -78,6 +78,11 @@
   line-height: normal; 
 }
 
+.edit__button_submit:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+
 .edit__button_exit {
   margin-top: 16px;
   color: #EE3465;

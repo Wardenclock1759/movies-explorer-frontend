@@ -21,6 +21,9 @@ const App = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
 
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+
   const [showHeader, setshowHeader] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
 
@@ -74,6 +77,8 @@ const handleTokenCheck = () => {
     if (res){
       setLoggedin(true);
       setCurrentUser(res.user);
+      setName(res.user.name);
+      setEmail(res.user.email);
       navigate("/movies", {replace: true});
     }
   }).catch(err => console.log(err));
@@ -82,8 +87,9 @@ const handleTokenCheck = () => {
 const handleRegister = (name, email, password) => {
   MainApi.register(name, email, password).then((res) => {
     setLoggedin(true);
-    console.log('Register OK')
     setCurrentUser(res.user);
+    setName(res.user.name);
+    setEmail(res.user.email);
     navigate('/movies', {replace: true});
   }).catch(() => {
     setLoggedin(false);
@@ -95,7 +101,18 @@ const handleLogin = (email, password) => {
     .then((res) => {
       setLoggedin(true);
       setCurrentUser(res.user);
+      setName(res.user.name);
+      setEmail(res.user.email);
       navigate('/movies', { replace: true });
+  }).catch(() => {
+  });
+}
+
+const handleEdit = (name, email) => {
+  MainApi.setProfileInfo({name: name, email: email})
+    .then((res) => {
+      setName(res.user.name);
+      setEmail(res.user.email);
   }).catch(() => {
   });
 }
@@ -135,7 +152,7 @@ const handleProfileClick = () => {
           <Route path="/" element={<Main toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="/movies" element={<ProtectedRoute element={Movies} loggedIn={loggedIn} handleClick={handleProfileClick} logout={handleIconClick} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} loggedIn={loggedIn} handleClick={handleProfileClick} logout={handleIconClick} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/profile" element={<ProtectedRoute element={ProfileEdit} loggedIn={loggedIn} sidebarOpen={sidebarOpen} andleClick={handleProfileClick} logout={handleIconClick} toggleSidebar={toggleSidebar} handleLogout={onLogOut} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/profile" element={<ProtectedRoute element={ProfileEdit} handleEdit={handleEdit} loggedIn={loggedIn} sidebarOpen={sidebarOpen} andleClick={handleProfileClick} logout={handleIconClick} toggleSidebar={toggleSidebar} handleLogout={onLogOut} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter} name={name} email={email}/>} />
           <Route path="/signup" element={<Register handleRegister={handleRegister} handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="/signin" element={<Login handleLogin={handleLogin} handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="*" element={<NotFound toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />

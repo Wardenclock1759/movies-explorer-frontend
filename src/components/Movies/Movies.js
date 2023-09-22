@@ -53,7 +53,7 @@ const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShow
 
   return (
     <>
-      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} isChecked={isShortFilmChecked}/>
+      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} query={searchQuery} isChecked={isShortFilmChecked}/>
       {isLoading &&
         <Preloader/>
       }

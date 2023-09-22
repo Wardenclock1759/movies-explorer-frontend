@@ -4,7 +4,7 @@ const FilterCheckbox = ({handleCheckboxChange, checked = false}) => {
   return (
     <div className="filter">
       <label className="filter__switch">
-        <input type="checkbox" className="filter__checkbox" defaultChecked={checked} checked={checked} onChange={handleCheckboxChange}/>
+        <input type="checkbox" className="filter__checkbox" checked={checked} onChange={handleCheckboxChange}/>
         <span className="filter__slider"></span>
       </label>
       <p className="filter__text">Короткометражки</p>

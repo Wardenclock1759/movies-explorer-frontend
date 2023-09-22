@@ -110,8 +110,7 @@ class MainApi {
 }
 
 const api = new MainApi({
-  // baseURL: 'https://api.movie.wardenclock.nomoreparties.co',
-  baseURL: 'http://localhost:3000',
+  baseURL: 'https://api.movie.wardenclock.nomoreparties.co',
   mode: "cors",
   headers: {
     'Content-Type': 'application/json'

@@ -87,9 +87,6 @@ const handleTokenCheck = () => {
 const handleRegister = (name, email, password) => {
   MainApi.register(name, email, password).then((res) => {
     setLoggedin(true);
-    setCurrentUser(res.user);
-    setName(res.user.name);
-    setEmail(res.user.email);
     navigate('/movies', {replace: true});
   }).catch(() => {
     setLoggedin(false);
@@ -100,9 +97,6 @@ const handleLogin = (email, password) => {
   MainApi.authorize(email, password)
     .then((res) => {
       setLoggedin(true);
-      setCurrentUser(res.user);
-      setName(res.user.name);
-      setEmail(res.user.email);
       navigate('/movies', { replace: true });
   }).catch(() => {
   });

@@ -12,6 +12,7 @@ const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShow
   const [movies, setMovies] = useState([]);
   const [userMovies, setUserMovies] = useState([]);
   const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     toggleSource(false);
@@ -37,14 +38,27 @@ const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShow
     });
   }, []);
 
+  useEffect(() => {
+    const savedSwitcherValue = localStorage.getItem("isShortFilmChecked");
+    if (savedSwitcherValue !== null) {
+      console.log(JSON.parse(savedSwitcherValue))
+      setIsShortFilmChecked(JSON.parse(savedSwitcherValue));
+    }
+
+    const savedSearchQuery = localStorage.getItem("searchQuery");
+    if (savedSearchQuery !== null) {
+      setSearchQuery(savedSearchQuery);
+    }
+  }, [])
+
   return (
     <>
-      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked}/>
+      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} isChecked={isShortFilmChecked}/>
       {isLoading &&
         <Preloader/>
       }
       {!isLoading &&
-        <MoviesCardList movies={movies} userMovies={userMovies} isShort={isShortFilmChecked}/>
+        <MoviesCardList movies={movies} userMovies={userMovies} isShort={isShortFilmChecked} search={searchQuery}/>
       }
       <NavTab
         opened={sidebarOpen}

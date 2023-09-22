@@ -6,9 +6,11 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MainApi from "../../utils/MainApi"
 
 const SavedMovies = ({sidebarOpen, toggleSidebar, handleClick, logout, toggleSource, toggleShowHeader, toggleShowFooter}) => {
+
   const [isLoading, setisLoading] = useState(true);
   const [movies, setMovies] = useState([]);
   const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     toggleSource(false);
@@ -34,7 +36,7 @@ const SavedMovies = ({sidebarOpen, toggleSidebar, handleClick, logout, toggleSou
 
   return (
     <>
-      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked}/>
+      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} isChecked={isShortFilmChecked}/>
       {isLoading &&
         <Preloader/>
       }
@@ -44,6 +46,7 @@ const SavedMovies = ({sidebarOpen, toggleSidebar, handleClick, logout, toggleSou
           isSaved={true}
           handleDelete={handleDelete}
           isShort={isShortFilmChecked}
+          search={searchQuery}
         />
       }
       <NavTab

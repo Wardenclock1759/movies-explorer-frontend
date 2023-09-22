@@ -1,16 +1,20 @@
 import {React, useState, useEffect} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, isShort}) => {
+const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, isShort, search}) => {
   
   const [limit, setLimit] = useState(16);
   const [increment, setIncrement] = useState(0);
   const [showAddButton, setShowAddButton] = useState(false);
   
-  const filteredMovies = isShort
-    ? movies.filter((movie) => movie.duration <= 40)
-    : movies;
-    
+  function getFilteredMovies() {
+    const shortMovies = isShort ? movies.filter((movie) => movie.duration <= 40) : movies;
+    const filteredMovies = search !== "" ? shortMovies.filter((movie) => movie.nameRU.toLowerCase().includes(search.toLowerCase())) : shortMovies;
+    return filteredMovies;
+  }
+
+  const filteredMovies = getFilteredMovies();
+
   useEffect(() => {
     const width = window.innerWidth;
     changeResolution(width);
@@ -25,14 +29,13 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, i
       timeout = setTimeout(() => {
         const width = window.innerWidth;
         changeResolution(width);
-        setShowAddButton(displayed >= movies.length);
+        setShowAddButton(displayed >= filteredMovies.length);
       }, 200);
     }
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
+  }, [filteredMovies]);
 
   let displayed = 0;
 
@@ -55,8 +58,9 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, i
   }
 
   const handleMoreClick = () => {
-    setLimit(limit + increment);
-    displayed += increment;
+    const newLimit = limit + increment;
+    setLimit(newLimit);
+    displayed = 0;
     setShowAddButton(displayed >= filteredMovies.length);
   }
 
@@ -74,7 +78,7 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, i
   return (
     <div className="list">
       <ul className="list__wrapper">
-        {filteredMovies.length > 0 && displayed <= limit && 
+        {filteredMovies.length > 0 && 
         filteredMovies.slice(0, limit).map((movie) => {
           displayed += 1;
           const imageURL = isSaved ? movie.image : `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
@@ -99,7 +103,7 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, i
         <button className="list__button" type='button' onClick={handleMoreClick}>Еще</button>
       }
       {
-        movies.length === 0 &&
+        filteredMovies.length === 0 &&
         <p className="list__info">Фильмы не найдены</p>
       }
     </div>

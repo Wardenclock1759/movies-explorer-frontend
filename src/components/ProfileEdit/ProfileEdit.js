@@ -3,6 +3,11 @@ import NavTab from "../NavTab/NavTab";
 var reactEmailValidator = require("react-email-validator");
 
 const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick, toggleSidebar, toggleSource, toggleShowHeader, toggleShowFooter, name, email}) => {
+
+  const [isFormModified, setIsFormModified] = useState(false);
+  const [nameSuccessMessage, setNameMessage] = useState("");
+  const [emailSuccessMessage, setEmailMessage] = useState("");
+
   useEffect(() => {
     toggleSource(false);
     toggleShowHeader(true);
@@ -10,8 +15,8 @@ const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick
   }, [toggleSource, toggleShowHeader, toggleShowFooter])
 
   const [formValue, setFormValue] = useState({
-    name: '',
-    email: '',
+    name: name,
+    email: email,
   });
 
   const [validationErrors, setValidationErrors] = useState({
@@ -21,8 +26,8 @@ const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick
 
   const validateName = (newName) => {
     const len = newName.length;
-    if (newName === name) return 'Имена совпадают';
-    if (len > 0 && len < 2) {
+    if (newName === name) return '1';
+    if (len >= 0 && len < 2) {
       return 'Имя должно быть минимум 2 символа';
     }
     if (len > 30) {
@@ -32,7 +37,7 @@ const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick
   };
   
   const validateEmail = (newEmail) => {
-    if (newEmail === email) return 'Почты совпадают';
+    if (newEmail === email) return '1';
     if(!reactEmailValidator.validate(newEmail)){
       return 'Проверьте адрес электронной почты';
     }
@@ -42,6 +47,13 @@ const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick
   const handleSubmit = (e) => {
     e.preventDefault();
     handleEdit(formValue.name, formValue.email);
+    setIsFormModified(false);
+    if (formValue.name !== name) {
+      setNameMessage("Имя изменено");
+    }
+    if (formValue.email !== email) {
+      setEmailMessage("Почта изменена");
+    }
   }
 
   return (
@@ -65,8 +77,10 @@ const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick
               ...validationErrors,
               name: validateName(e.target.value),
             });
-          }}/>
+            setIsFormModified(true);
+            }}/>
           </div>
+          <span className="edit__error">{nameSuccessMessage}</span>
           <span className="edit__line"></span>
           <div className="edit__row">
             <label className="edit__subtitle">
@@ -82,10 +96,12 @@ const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick
                 ...validationErrors,
                 email: validateEmail(e.target.value),
               });
+              setIsFormModified(true);
             }}/>
           </div>
+          <span className="edit__error">{emailSuccessMessage}</span>
         </form>
-        <button className="edit__button edit__button_submit" type="submit" onClick={handleSubmit} disabled={Object.values(validationErrors).some((error) => error !== '') || Object.values(formValue).some((value) => value === '')}>Редактировать</button>
+        <button className="edit__button edit__button_submit" type="submit" onClick={handleSubmit} disabled={Object.values(validationErrors).some((error) => error !== '') || !isFormModified}>Редактировать</button>
         <button className="edit__button edit__button_exit" type="button" onClick={handleLogout}>Выйти из аккаунта</button>
       </section>
       <NavTab

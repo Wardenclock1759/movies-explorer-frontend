@@ -51,9 +51,6 @@ const App = () => {
 
   const handleIconClick = async () => {
     try {
-      await MainApi.logout();
-      setLoggedin(false);
-      setCurrentUser(null);
       navigate('/', { replace: true });
     } catch (err) {
       console.log(err);

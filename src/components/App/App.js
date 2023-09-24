@@ -51,18 +51,18 @@ const App = () => {
 
   const handleIconClick = async () => {
     try {
-      navigate('/', { replace: true });
+      navigate('/');
     } catch (err) {
       console.log(err);
     }
   }
 
   const handleRegisterClick = () => {
-    navigate('/signup', { replace: true });
+    navigate('/signup');
   }
 
   const handleLoginClick = () => {
-    navigate('/signin', { replace: true });
+    navigate('/signin');
   }
 
   useEffect(() => {
@@ -76,7 +76,6 @@ const handleTokenCheck = () => {
       setCurrentUser(res.user);
       setName(res.user.name);
       setEmail(res.user.email);
-      navigate("/movies", {replace: true});
     }
   }).catch(err => console.log(err));
 }
@@ -87,7 +86,7 @@ const handleRegister = (name, email, password) => {
     setCurrentUser(res.user);
     setName(res.user.name);
     setEmail(res.user.email);
-    navigate('/movies', {replace: true});
+    navigate('/movies');
   }).catch(() => {
     setLoggedin(false);
   });
@@ -101,7 +100,7 @@ const handleLogin = (email, password) => {
       setCurrentUser(res.user);
       setName(res.user.name);
       setEmail(res.user.email);
-      navigate('/movies', { replace: true });
+      navigate('/movies');
   }).catch(() => {
   });
 }
@@ -120,7 +119,7 @@ const onLogOut = async () => {
     await MainApi.logout();
     setLoggedin(false);
     setCurrentUser(null);
-    navigate('/signin', { replace: true });
+    navigate('/');
   } catch (err) {
     console.log(err);
   }
@@ -128,7 +127,7 @@ const onLogOut = async () => {
 
 const handleProfileClick = () => {
   setLoggedin(true);
-  navigate('/profile', { replace: true });
+  navigate('/profile');
 };
 
   return (

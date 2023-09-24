@@ -6,11 +6,9 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesApi from "../../utils/MoviesApi"
 import MainApi from "../../utils/MainApi"
 
-const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
+const Movies = ({movies, userMovies, setUserMovies, logout, handleClick, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
 
   const [isLoading, setisLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
-  const [userMovies, setUserMovies] = useState([]);
   const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -19,24 +17,6 @@ const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShow
     toggleShowHeader(true);
     toggleShowFooter(true);
   }, [toggleSource, toggleShowHeader, toggleShowFooter]);
-
-  useEffect(() => {
-    MoviesApi.getMovies()
-    .then((Movies) => {
-      setMovies(Movies);
-    })
-    .catch((error) => {
-      console.error(`Error fetching movies data: ${error}`);
-    });
-    MainApi.getSavedMovies()
-    .then((Movies) => {
-      setUserMovies(Movies);
-      setisLoading(false);
-    })
-    .catch((error) => {
-      console.error(`Error fetching movies data: ${error}`);
-    });
-  }, []);
 
   useEffect(() => {
     const savedSwitcherValue = localStorage.getItem("isShortFilmChecked");
@@ -50,14 +30,22 @@ const Movies = ({logout, handleClick, toggleSource, toggleShowHeader, toggleShow
     }
   }, [])
 
+  const handleLikeClick = (like, movie) => {
+    if (like) {
+      userMovies.push(movie);
+    } else {
+      setUserMovies(userMovies.filter((userMovie) => userMovie.movieId !== movie.movieId))
+    }
+  }
+
   return (
     <>
       <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} query={searchQuery} isChecked={isShortFilmChecked}/>
-      {isLoading &&
+      {!isLoading &&
         <Preloader/>
       }
-      {!isLoading &&
-        <MoviesCardList movies={movies} userMovies={userMovies} isShort={isShortFilmChecked} search={searchQuery}/>
+      {isLoading &&
+        <MoviesCardList movies={movies} userMovies={userMovies} isShort={isShortFilmChecked} search={searchQuery} handleLikeClick={handleLikeClick}/>
       }
       <NavTab
         opened={sidebarOpen}

@@ -1,7 +1,7 @@
 import {React, useState} from "react";
 import MainApi from "../../utils/MainApi";
 
-const MoviesCard = ({isMain = true, isLiked, title, image, duration, movie, id, handleDeleteClick}) => {
+const MoviesCard = ({isMain = true, isLiked, title, image, duration, movie, id, handleDeleteClick, handleLikeClick}) => {
   const [Liked, setLiked] = useState(isLiked);
   const [movieId, setId] = useState(id);
 
@@ -25,6 +25,7 @@ const MoviesCard = ({isMain = true, isLiked, title, image, duration, movie, id, 
       .then(() => {
         setLiked(true);
         setId(newMovie.movieId);
+        handleLikeClick(true, newMovie);
       })
       .catch((error) => {
         console.error(`Error adding new movie: ${error}`);
@@ -33,6 +34,7 @@ const MoviesCard = ({isMain = true, isLiked, title, image, duration, movie, id, 
       MainApi.removeMovie(newMovie.movieId)
       .then(() => {
         setLiked(false);
+        handleLikeClick(false, newMovie);
       })
       .catch((error) => {
         console.error(`Error deleting movie: ${error}`);

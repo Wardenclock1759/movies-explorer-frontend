@@ -1,7 +1,7 @@
 import {React, useState, useEffect} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, isShort, search}) => {
+const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, isShort, search, handleLikeClick}) => {
   
   const [limit, setLimit] = useState(16);
   const [increment, setIncrement] = useState(0);
@@ -100,6 +100,7 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, i
             id={movieId}
             movie={movie}
             handleDeleteClick={handleDelete}
+            handleLikeClick={handleLikeClick}
           />
           })
         }

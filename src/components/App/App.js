@@ -13,6 +13,7 @@ import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
 
 import MainApi from '../../utils/MainApi';
+import MoviesApi from "../../utils/MoviesApi"
 import ProtectedRoute from '../ProtectedRoute';
 
 const App = () => {
@@ -26,6 +27,9 @@ const App = () => {
 
   const [showHeader, setshowHeader] = useState(true);
   const [showFooter, setShowFooter] = useState(true);
+
+  const [movies, setMovies] = useState([]);
+  const [userMovies, setUserMovies] = useState([]);
 
   const toggleSource = (value = true) => {
     setSourceMain(value);
@@ -69,6 +73,25 @@ const App = () => {
     handleTokenCheck();
   }, [])
 
+  useEffect(() => {
+    if (loggedIn) {
+      MoviesApi.getMovies()
+      .then((Movies) => {
+        setMovies(Movies);
+      })
+      .catch((error) => {
+        console.error(`Error fetching movies data: ${error}`);
+      });
+      MainApi.getSavedMovies()
+      .then((Movies) => {
+        setUserMovies(Movies);
+      })
+      .catch((error) => {
+        console.error(`Error fetching movies data: ${error}`);
+      });
+    }    
+  }, [loggedIn]);
+
 const handleTokenCheck = () => {
   MainApi.checkToken().then((res) => {
     if (res){
@@ -96,7 +119,6 @@ const handleLogin = (email, password) => {
   MainApi.authorize(email, password)
     .then((res) => {
       setLoggedin(true);
-      console.log(res)
       setCurrentUser(res.user);
       setName(res.user.name);
       setEmail(res.user.email);
@@ -147,8 +169,8 @@ const handleProfileClick = () => {
       <main className="page">
         <Routes>
           <Route path="/" element={<Main toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/movies" element={<ProtectedRoute element={Movies} loggedIn={loggedIn} handleClick={handleProfileClick} logout={handleIconClick} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} loggedIn={loggedIn} handleClick={handleProfileClick} logout={handleIconClick} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/movies" element={<ProtectedRoute element={Movies} movies={movies} userMovies={userMovies} setUserMovies={setUserMovies} loggedIn={loggedIn} handleClick={handleProfileClick} logout={handleIconClick} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} userMovies={userMovies} setUserMovies={setUserMovies} loggedIn={loggedIn} handleClick={handleProfileClick} logout={handleIconClick} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="/profile" element={<ProtectedRoute element={ProfileEdit} handleEdit={handleEdit} loggedIn={loggedIn} sidebarOpen={sidebarOpen} andleClick={handleProfileClick} logout={handleIconClick} toggleSidebar={toggleSidebar} handleLogout={onLogOut} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter} name={name} email={email}/>} />
           <Route path="/signup" element={<Register handleRegister={handleRegister} handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="/signin" element={<Login handleLogin={handleLogin} handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />

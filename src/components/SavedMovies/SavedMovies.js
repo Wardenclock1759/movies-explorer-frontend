@@ -5,10 +5,9 @@ import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MainApi from "../../utils/MainApi"
 
-const SavedMovies = ({sidebarOpen, toggleSidebar, handleClick, logout, toggleSource, toggleShowHeader, toggleShowFooter}) => {
+const SavedMovies = ({userMovies, setUserMovies, sidebarOpen, toggleSidebar, handleClick, logout, toggleSource, toggleShowHeader, toggleShowFooter}) => {
 
   const [isLoading, setisLoading] = useState(true);
-  const [movies, setMovies] = useState([]);
   const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -18,31 +17,20 @@ const SavedMovies = ({sidebarOpen, toggleSidebar, handleClick, logout, toggleSou
     toggleShowFooter(true);
   }, [toggleSource, toggleShowHeader, toggleShowFooter]);
 
-  useEffect(() => {
-    MainApi.getSavedMovies()
-    .then((Movies) => {
-      setMovies(Movies);
-      setisLoading(false);
-    })
-    .catch((error) => {
-      console.error(`Error fetching movies data: ${error}`);
-    });
-  }, []);
-
   const handleDelete = (movieId) => {
-    const updatedUserMovies = movies.filter((movie) => movie.movieId !== movieId);
-    setMovies(updatedUserMovies);
+    const updatedUserMovies = userMovies.filter((movie) => movie.movieId !== movieId);
+    setUserMovies(updatedUserMovies);
   }
 
   return (
     <>
       <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} isChecked={isShortFilmChecked} isSaved={true}/>
-      {isLoading &&
+      {!isLoading &&
         <Preloader/>
       }
-      {!isLoading &&
+      {isLoading &&
         <MoviesCardList
-          movies={movies}
+          movies={userMovies}
           isSaved={true}
           handleDelete={handleDelete}
           isShort={isShortFilmChecked}

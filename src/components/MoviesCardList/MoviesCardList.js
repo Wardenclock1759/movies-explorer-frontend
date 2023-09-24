@@ -23,7 +23,6 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, i
   useEffect(() => {
     const width = window.innerWidth;
     changeResolution(width);
-    console.log(len)
     setShowAddButton(displayed >= len);
   }, [len]);
 

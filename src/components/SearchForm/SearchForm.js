@@ -1,7 +1,7 @@
 import {React, useEffect, useState} from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-const SearchForm = ({setIsShortFilmChecked, setSearchQuery, query = "", isChecked = false}) => {
+const SearchForm = ({setIsShortFilmChecked, setSearchQuery, query = "", isChecked = false, isSaved = false}) => {
   const [title, setTitle] = useState(query || "");
   const [checkbox, setCheckbox] = useState(isChecked);
   useEffect(() => {
@@ -19,8 +19,10 @@ const SearchForm = ({setIsShortFilmChecked, setSearchQuery, query = "", isChecke
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    localStorage.setItem("isShortFilmChecked", JSON.stringify(checkbox));
-    localStorage.setItem("searchQuery", title);
+    if (!isSaved) {
+      localStorage.setItem("isShortFilmChecked", JSON.stringify(checkbox));
+      localStorage.setItem("searchQuery", title);
+    }
     setSearchQuery(title);
   };
 

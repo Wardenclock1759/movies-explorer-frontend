@@ -36,7 +36,7 @@ const SavedMovies = ({sidebarOpen, toggleSidebar, handleClick, logout, toggleSou
 
   return (
     <>
-      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} isChecked={isShortFilmChecked}/>
+      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} isChecked={isShortFilmChecked} isSaved={true}/>
       {isLoading &&
         <Preloader/>
       }

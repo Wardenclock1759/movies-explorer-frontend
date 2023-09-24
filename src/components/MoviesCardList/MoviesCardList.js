@@ -12,14 +12,20 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, i
     const filteredMovies = search !== "" ? shortMovies.filter((movie) => movie.nameRU.toLowerCase().includes(search.toLowerCase())) : shortMovies;
     return filteredMovies;
   }
-
+  
   const filteredMovies = getFilteredMovies();
+  const [len, setLen] = useState();
 
+  useEffect(() => {
+    setLen(filteredMovies.length);
+  }, [filteredMovies]);
+  
   useEffect(() => {
     const width = window.innerWidth;
     changeResolution(width);
-    setShowAddButton(displayed >= filteredMovies.length);
-  }, [filteredMovies]);
+    console.log(len)
+    setShowAddButton(displayed >= len);
+  }, [len]);
 
   useEffect(() => {
     let timeout;
@@ -60,7 +66,7 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, i
   const handleMoreClick = () => {
     const newLimit = limit + increment;
     setLimit(newLimit);
-    displayed = 0;
+    displayed+=increment;
     setShowAddButton(displayed >= filteredMovies.length);
   }
 

@@ -3,7 +3,6 @@ import NavTab from "../NavTab/NavTab";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import MainApi from "../../utils/MainApi"
 
 const SavedMovies = ({userMovies, setUserMovies, sidebarOpen, toggleSidebar, handleClick, logout, toggleSource, toggleShowHeader, toggleShowFooter}) => {
 

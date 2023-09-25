@@ -1,14 +1,22 @@
 import {React, useState, useEffect} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 
+import {
+  resolutionBreakpoints,
+  displayLimits,
+  displayIncrements,
+  movieThreshold,
+  stringValues,
+} from "../../utils/config";
+
 const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, isShort, search, handleLikeClick}) => {
   
-  const [limit, setLimit] = useState(16);
-  const [increment, setIncrement] = useState(0);
+  const [limit, setLimit] = useState(displayLimits.displayLimitLarge);
+  const [increment, setIncrement] = useState(displayIncrements.displayIncrementInitial);
   const [showAddButton, setShowAddButton] = useState(false);
   
   function getFilteredMovies() {
-    const shortMovies = isShort ? movies.filter((movie) => movie.duration <= 40) : movies;
+    const shortMovies = isShort ? movies.filter((movie) => movie.duration <= movieThreshold) : movies;
     const filteredMovies = search !== "" ? shortMovies.filter((movie) => movie.nameRU.toLowerCase().includes(search.toLowerCase())) : shortMovies;
     return filteredMovies;
   }
@@ -45,15 +53,15 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, i
   let displayed = 0;
 
   const changeResolution = (width) => {
-    if (width >= 1280) {
-      setIncrement(4);
-      setLimit(16);
-    } else if (width > 767 && width < 1280) {
-      setIncrement(2);
-      setLimit(8);
-    } else if (width <= 767) {
-      setIncrement(2);
-      setLimit(5);
+    if (width >= resolutionBreakpoints.breakpointWide) {
+      setIncrement(displayIncrements.displayIncrementLarge);
+      setLimit(displayLimits.displayLimitLarge);
+    } else if (width > resolutionBreakpoints.breakpointSmall && width < resolutionBreakpoints.breakpointWide) {
+      setIncrement(displayIncrements.displayIncrementMedium);
+      setLimit(displayLimits.displayLimitMedium);
+    } else if (width <= resolutionBreakpoints.breakpointSmall) {
+      setIncrement(displayIncrements.displayIncrementMedium);
+      setLimit(displayLimits.displayLimitSmall);
     }
   }
 
@@ -110,7 +118,7 @@ const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, i
       }
       {
         filteredMovies.length === 0 &&
-        <p className="list__info">Фильмы не найдены</p>
+        <p className="list__info">{stringValues.moviesNotFound}</p>
       }
     </div>
   );

@@ -2,6 +2,10 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Profile from "../Profile/Profile";
 
+import {
+  routesValues,
+} from "../../utils/config";
+
 const NavTab = ({logout, handleClick, opened = false, handleClose }) => {
 
   const handleCloseClick = () => {
@@ -31,7 +35,7 @@ const NavTab = ({logout, handleClick, opened = false, handleClose }) => {
             }
             onClick={handleLogoutClick}
           >
-            Главная
+            {routesValues.main}
           </NavLink>
           <NavLink
             to="/movies"
@@ -40,7 +44,7 @@ const NavTab = ({logout, handleClick, opened = false, handleClose }) => {
             }
             onClick={handleClose}
           >
-            Фильмы
+            {routesValues.movies}
           </NavLink>
           <NavLink
             to="/saved-movies"
@@ -49,10 +53,10 @@ const NavTab = ({logout, handleClick, opened = false, handleClose }) => {
             }
             onClick={handleClose}
           >
-            Сохраненные фильмы
+            {routesValues.savedMovies}
           </NavLink>
         </nav>
-        <Profile profileName="Аккаунт" isMenu={true} handleClick={handleCloseClick}/>
+        <Profile isMenu={true} handleClick={handleCloseClick}/>
       </div>
     </div>
   );

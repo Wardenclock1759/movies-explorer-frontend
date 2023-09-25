@@ -3,8 +3,6 @@ import NavTab from "../NavTab/NavTab";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
-import MoviesApi from "../../utils/MoviesApi"
-import MainApi from "../../utils/MainApi"
 
 const Movies = ({search, isChecked, setIsShortFilmChecked, setSearchQuery, movies, userMovies, setUserMovies, logout, handleClick, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
 

@@ -142,11 +142,18 @@ const handleLogin = (email, password) => {
   });
 }
 
-const handleEdit = (name, email) => {
+const handleEdit = (name, email, oldName, oldEmail, setNameMessage, setEmailMessage) => {
   MainApi.setProfileInfo({name: name, email: email})
     .then((res) => {
+      console.log(res)
       setName(res.user.name);
       setEmail(res.user.email);
+      if (name !== oldName) {
+        setNameMessage("Имя изменено");
+      }
+      if (email !== oldEmail) {
+        setEmailMessage("Почта изменена");
+      }
   }).catch(() => {
   });
 }

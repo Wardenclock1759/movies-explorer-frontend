@@ -46,14 +46,8 @@ const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleEdit(formValue.name, formValue.email);
+    handleEdit(formValue.name, formValue.email, name, email, setNameMessage, setEmailMessage);
     setIsFormModified(false);
-    if (formValue.name !== name) {
-      setNameMessage("Имя изменено");
-    }
-    if (formValue.email !== email) {
-      setEmailMessage("Почта изменена");
-    }
   }
 
   return (

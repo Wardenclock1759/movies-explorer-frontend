@@ -6,11 +6,17 @@ const SearchForm = ({setIsShortFilmChecked, setSearchQuery, query = "", isChecke
   const [checkbox, setCheckbox] = useState(isChecked);
   useEffect(() => {
     setIsShortFilmChecked(isChecked);
+    if (!isSaved) {
+      localStorage.setItem("isShortFilmChecked", JSON.stringify(checkbox));
+    }
   })
 
   const handleCheckboxChange = (e) => {
     setIsShortFilmChecked(e.target.checked);
     setCheckbox(e.target.checked);
+    if (!isSaved) {
+      localStorage.setItem("isShortFilmChecked", JSON.stringify(checkbox));
+    }
   };
 
   const handleInputChange = (e) => {

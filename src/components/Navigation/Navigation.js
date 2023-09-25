@@ -6,13 +6,17 @@ const Navigation = () => {
     <nav className='navigation'>
       <NavLink
         to="/movies"
-        className={"navigation__link"}
+        className={({ isActive, isPending }) =>
+          isPending ? "navigation__link" : isActive ? "navigation__link navigation__link_active" : "navigation__link"
+        }
       >
         Фильмы
       </NavLink>
       <NavLink
         to="/saved-movies"
-        className={"navigation__link"}
+        className={({ isActive, isPending }) =>
+          isPending ? "navigation__link" : isActive ? "navigation__link navigation__link_active" : "navigation__link"
+        }
       >
         Сохраненные фильмы
       </NavLink>

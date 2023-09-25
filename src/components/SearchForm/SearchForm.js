@@ -1,8 +1,8 @@
 import {React, useEffect, useState} from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-const SearchForm = ({setIsShortFilmChecked, setSearchQuery, query = "", isChecked = false, isSaved = false}) => {
-  const [title, setTitle] = useState(query || "");
+const SearchForm = ({setIsShortFilmChecked, setSearchQuery, query = "", isChecked, isSaved = false}) => {
+  const [title, setTitle] = useState(query);
   const [checkbox, setCheckbox] = useState(isChecked);
   useEffect(() => {
     setIsShortFilmChecked(isChecked);

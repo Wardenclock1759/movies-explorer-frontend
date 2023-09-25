@@ -6,29 +6,15 @@ import MoviesCardList from "../MoviesCardList/MoviesCardList";
 import MoviesApi from "../../utils/MoviesApi"
 import MainApi from "../../utils/MainApi"
 
-const Movies = ({movies, userMovies, setUserMovies, logout, handleClick, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
+const Movies = ({search, isChecked, setIsShortFilmChecked, setSearchQuery, movies, userMovies, setUserMovies, logout, handleClick, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
 
   const [isLoading, setisLoading] = useState(true);
-  const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
-  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     toggleSource(false);
     toggleShowHeader(true);
     toggleShowFooter(true);
   }, [toggleSource, toggleShowHeader, toggleShowFooter]);
-
-  useEffect(() => {
-    const savedSwitcherValue = localStorage.getItem("isShortFilmChecked");
-    if (savedSwitcherValue !== null) {
-      setIsShortFilmChecked(JSON.parse(savedSwitcherValue));
-    }
-
-    const savedSearchQuery = localStorage.getItem("searchQuery");
-    if (savedSearchQuery !== null) {
-      setSearchQuery(savedSearchQuery);
-    }
-  }, [])
 
   const handleLikeClick = (like, movie) => {
     if (like) {
@@ -40,12 +26,12 @@ const Movies = ({movies, userMovies, setUserMovies, logout, handleClick, toggleS
 
   return (
     <>
-      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} query={searchQuery} isChecked={isShortFilmChecked}/>
+      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} query={search} isChecked={isChecked}/>
       {!isLoading &&
         <Preloader/>
       }
       {isLoading &&
-        <MoviesCardList movies={movies} userMovies={userMovies} isShort={isShortFilmChecked} search={searchQuery} handleLikeClick={handleLikeClick}/>
+        <MoviesCardList movies={movies} userMovies={userMovies} isShort={isChecked} search={search} handleLikeClick={handleLikeClick}/>
       }
       <NavTab
         opened={sidebarOpen}

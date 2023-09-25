@@ -31,6 +31,9 @@ const App = () => {
   const [movies, setMovies] = useState([]);
   const [userMovies, setUserMovies] = useState([]);
 
+  const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+
   const toggleSource = (value = true) => {
     setSourceMain(value);
   };
@@ -91,6 +94,18 @@ const App = () => {
       });
     }    
   }, [loggedIn]);
+
+  useEffect(() => {
+    const savedSwitcherValue = localStorage.getItem("isShortFilmChecked");
+    if (savedSwitcherValue !== null) {
+      setIsShortFilmChecked(JSON.parse(savedSwitcherValue));
+    }
+
+    const savedSearchQuery = localStorage.getItem("searchQuery");
+    if (savedSearchQuery !== null) {
+      setSearchQuery(savedSearchQuery);
+    }
+  }, [])
 
 const handleTokenCheck = () => {
   MainApi.checkToken().then((res) => {
@@ -169,7 +184,7 @@ const handleProfileClick = () => {
       <main className="page">
         <Routes>
           <Route path="/" element={<Main toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
-          <Route path="/movies" element={<ProtectedRoute element={Movies} movies={movies} userMovies={userMovies} setUserMovies={setUserMovies} loggedIn={loggedIn} handleClick={handleProfileClick} logout={handleIconClick} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
+          <Route path="/movies" element={<ProtectedRoute element={Movies} setSearchQuery={setSearchQuery} setIsShortFilmChecked={setIsShortFilmChecked} search={searchQuery} isChecked={isShortFilmChecked} movies={movies} userMovies={userMovies} setUserMovies={setUserMovies} loggedIn={loggedIn} handleClick={handleProfileClick} logout={handleIconClick} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="/saved-movies" element={<ProtectedRoute element={SavedMovies} userMovies={userMovies} setUserMovies={setUserMovies} loggedIn={loggedIn} handleClick={handleProfileClick} logout={handleIconClick} sidebarOpen={sidebarOpen} toggleSidebar={toggleSidebar} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />
           <Route path="/profile" element={<ProtectedRoute element={ProfileEdit} handleEdit={handleEdit} loggedIn={loggedIn} sidebarOpen={sidebarOpen} andleClick={handleProfileClick} logout={handleIconClick} toggleSidebar={toggleSidebar} handleLogout={onLogOut} toggleLogin={toggleLogin} toggleSource={toggleSource} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter} name={name} email={email}/>} />
           <Route path="/signup" element={<Register handleRegister={handleRegister} handleIconClick={handleIconClick} toggleShowHeader={toggleShowHeader} toggleShowFooter={toggleShowFooter}/>} />

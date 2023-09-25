@@ -2,7 +2,7 @@ import {React} from 'react';
 import Navigation from '../Navigation/Navigation';
 import Profile from '../Profile/Profile';
 
-const Header = ({ sourceMain = false, loggedIn = false, handleIconClick, handleMenuClick, handleRegisterClick, handleLoginClick }) => {
+const Header = ({ sourceMain = false, loggedIn, handleIconClick, handleMenuClick, handleRegisterClick, handleLoginClick, handleClick }) => {
   return (
     <header className={'header' + (sourceMain ? ' header_about' : '')}>
       <div className='header__nav-link'>
@@ -25,7 +25,7 @@ const Header = ({ sourceMain = false, loggedIn = false, handleIconClick, handleM
       }
       {loggedIn &&
         <div className='header__profile-wrapper'>
-          <Profile profileName='Аккаунт'/>
+          <Profile profileName='Аккаунт' handleClick={handleClick}/>
           <button className='header__menu-button' onClick={handleMenuClick} type='button'>
             <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path fillRule="evenodd" clipRule="evenodd" d="M36 14L8 14V11L36 11V14Z" fill="white"/>

@@ -2,7 +2,22 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Profile from "../Profile/Profile";
 
-const NavTab = ({ opened = false, handleClose }) => {
+import {
+  routesValues,
+} from "../../utils/config";
+
+const NavTab = ({logout, handleClick, opened = false, handleClose }) => {
+
+  const handleCloseClick = () => {
+    handleClose();
+    handleClick();
+  }
+
+  const handleLogoutClick = () => {
+    handleClose();
+    logout();
+  }
+
   return (
     <div className={'navtab' + (opened ? ' navtab_opened' : '')}>
       <div className="navtab__container">
@@ -18,27 +33,30 @@ const NavTab = ({ opened = false, handleClose }) => {
             className={({ isActive, isPending }) =>
               isPending ? "navtab__link" : isActive ? "navtab__link navtab__link_active" : "navtab__link"
             }
+            onClick={handleLogoutClick}
           >
-            Главная
+            {routesValues.main}
           </NavLink>
           <NavLink
             to="/movies"
             className={({ isActive, isPending }) =>
               isPending ? "navtab__link" : isActive ? "navtab__link navtab__link_active" : "navtab__link"
             }
+            onClick={handleClose}
           >
-            Фильмы
+            {routesValues.movies}
           </NavLink>
           <NavLink
             to="/saved-movies"
             className={({ isActive, isPending }) =>
               isPending ? "navtab__link" : isActive ? "navtab__link navtab__link_active" : "navtab__link"
             }
+            onClick={handleClose}
           >
-            Сохраненные фильмы
+            {routesValues.savedMovies}
           </NavLink>
         </nav>
-        <Profile profileName="Аккаунт" isMenu={true}/>
+        <Profile isMenu={true} handleClick={handleCloseClick}/>
       </div>
     </div>
   );

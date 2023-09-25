@@ -5,13 +5,12 @@ import Techs from '../Techs/Techs';
 import AboutMe from '../AboutMe/AboutMe';
 import Portfolio from '../Portfolio/Portfolio';
 
-const Main = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter}) => {
+const Main = ({toggleSource, toggleShowHeader, toggleShowFooter}) => {
   useEffect(() => {
-    toggleLogin(false);
     toggleShowHeader(true);
     toggleShowFooter(true);
     toggleSource(true);
-  }, [toggleLogin, toggleSource, toggleShowFooter, toggleShowHeader]);
+  }, [toggleSource, toggleShowFooter, toggleShowHeader]);
 
   return (
     <>

@@ -1,186 +1,124 @@
-import {React} from "react";
+import {React, useState, useEffect} from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import image1 from "../../images/films1.png"
-import image2 from "../../images/flims2.png"
-import image3 from "../../images/flims3.png"
-import image4 from "../../images/flims4.png"
-import image5 from "../../images/flims5.png"
-import image6 from "../../images/flims6.png"
-import image7 from "../../images/flims7.png"
-import image8 from "../../images/flims8.png"
-import image9 from "../../images/flims9.png"
-import image10 from "../../images/flims10.png"
-import image11 from "../../images/flims11.png"
-import image12 from "../../images/flims12.png"
-import image13 from "../../images/flims13.png"
-import image14 from "../../images/flims14.png"
-import image15 from "../../images/flims15.png"
-import image16 from "../../images/flims16.png"
 
-const MoviesCardList = ({isSaved = false}) => {
-  const title1 = "33 слова о дизайне";
-  const title2 = "Киноальманах «100 лет дизайна»";
-  const title3 = "В погоне за Бенкси";
-  const title4 = "Баския: Взрыв реальности";
-  const title5 = "Бег это свобода";
-  const title6 = "Книготорговцы";
-  const title7 = "Когда я думаю о Германии ночью";
-  const title8 = "Gimme Danger: История Игги и The Stooges";
-  const title9 = "Дженис: Маленькая девочка грустит";
-  const title10 = "Соберись перед прыжком";
-  const title11 = "Пи Джей Харви: A dog called money";
-  const title12 = "По волнам: Искусство звука в кино";
-  const title13 = "Рудбой";
-  const title14 = "Скейт — кухня";
-  const title15 = "Война искусств";
-  const title16 = "Зона";
-  const duration = "1ч 42м"
+import {
+  resolutionBreakpoints,
+  displayLimits,
+  displayIncrements,
+  movieThreshold,
+  stringValues,
+} from "../../utils/config";
+
+const MoviesCardList = ({movies, isSaved = false, userMovies=[], handleDelete, isShort, search, handleLikeClick}) => {
+  
+  const [limit, setLimit] = useState(displayLimits.displayLimitLarge);
+  const [increment, setIncrement] = useState(displayIncrements.displayIncrementInitial);
+  const [showAddButton, setShowAddButton] = useState(false);
+  
+  function getFilteredMovies() {
+    const shortMovies = isShort ? movies.filter((movie) => movie.duration <= movieThreshold) : movies;
+    const filteredMovies = search !== "" ? shortMovies.filter((movie) => movie.nameRU.toLowerCase().includes(search.toLowerCase())) : shortMovies;
+    return filteredMovies;
+  }
+  
+  const filteredMovies = getFilteredMovies();
+  const [len, setLen] = useState();
+
+  useEffect(() => {
+    setLen(filteredMovies.length);
+  }, [filteredMovies]);
+  
+  useEffect(() => {
+    const width = window.innerWidth;
+    changeResolution(width);
+    setShowAddButton(displayed >= len);
+  }, [len]);
+
+  useEffect(() => {
+    let timeout;
+    const handleResize = () => {
+      clearTimeout(timeout);
+
+      timeout = setTimeout(() => {
+        const width = window.innerWidth;
+        changeResolution(width);
+        setShowAddButton(displayed >= filteredMovies.length);
+      }, 200);
+    }
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, [filteredMovies]);
+
+  let displayed = 0;
+
+  const changeResolution = (width) => {
+    if (width >= resolutionBreakpoints.breakpointWide) {
+      setIncrement(displayIncrements.displayIncrementLarge);
+      setLimit(displayLimits.displayLimitLarge);
+    } else if (width > resolutionBreakpoints.breakpointSmall && width < resolutionBreakpoints.breakpointWide) {
+      setIncrement(displayIncrements.displayIncrementMedium);
+      setLimit(displayLimits.displayLimitMedium);
+    } else if (width <= resolutionBreakpoints.breakpointSmall) {
+      setIncrement(displayIncrements.displayIncrementMedium);
+      setLimit(displayLimits.displayLimitSmall);
+    }
+  }
+
+  function findLike(id) {
+    if (!userMovies) return false;
+    return userMovies.some((movie) => movie.movieId === id);
+  }
+
+  const handleMoreClick = () => {
+    const newLimit = limit + increment;
+    setLimit(newLimit);
+    displayed+=increment;
+    setShowAddButton(displayed >= filteredMovies.length);
+  }
+
+  function toHoursAndMinutes(durationInMinutes) {
+    const hours = Math.floor(durationInMinutes / 60);
+    const minutes = durationInMinutes % 60;
+
+    if (hours === 0) {
+      return `${minutes}м`;
+    }
+
+    return `${hours}ч ${minutes}м`;
+  }
 
   return (
     <div className="list">
-      {!isSaved &&
       <ul className="list__wrapper">
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title1}
-          image={image1}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title2}
-          image={image2}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title3}
-          image={image3}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title4}
-          image={image4}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title5}
-          image={image5}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title6}
-          image={image6}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title7}
-          image={image7}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title8}
-          image={image8}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title9}
-          image={image9}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title10}
-          image={image10}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title11}
-          image={image11}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title12}
-          image={image12}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title13}
-          image={image13}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title14}
-          image={image14}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title15}
-          image={image15}
-          duration={duration}
-        />
-        <MoviesCard
-          isMain={true}
-          isLiked={false}
-          title={title16}
-          image={image16}
-          duration={duration}
-        />
+        {filteredMovies.length > 0 && 
+        filteredMovies.slice(0, limit).map((movie) => {
+          displayed += 1;
+          const imageURL = isSaved ? movie.image : `https://api.nomoreparties.co${movie.image.formats.thumbnail.url}`;
+          const movieId = isSaved ? movie.movieId : movie.id;
+          const liked = findLike(movieId);
+
+          return <MoviesCard
+            isMain={!isSaved}
+            isLiked={liked}
+            title={movie.nameRU}
+            image={imageURL}
+            duration={toHoursAndMinutes(movie.duration)}
+            key={movieId}
+            id={movieId}
+            movie={movie}
+            handleDeleteClick={handleDelete}
+            handleLikeClick={handleLikeClick}
+          />
+          })
+        }
       </ul>
+      {!showAddButton && 
+        <button className="list__button" type='button' onClick={handleMoreClick}>Еще</button>
       }
-      {!isSaved && 
-        <button className="list__button" type='button'>Еще</button>
-      }
-      {isSaved && 
-        <div className="list__wrapper">
-          <MoviesCard
-            isMain={false}
-            isLiked={false}
-            title={title1}
-            image={image1}
-            duration={duration}
-          />
-          <MoviesCard
-            isMain={false}
-            isLiked={false}
-            title={title2}
-            image={image2}
-            duration={duration}
-          />
-          <MoviesCard
-            isMain={false}
-            isLiked={false}
-            title={title3}
-            image={image3}
-            duration={duration}
-          />
-        </div>
+      {
+        filteredMovies.length === 0 &&
+        <p className="list__info">{stringValues.moviesNotFound}</p>
       }
     </div>
   );

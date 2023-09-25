@@ -1,8 +1,12 @@
-import {React, useEffect} from "react";
+import {React, useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import Submit from "../Submit/Submit";
+var reactEmailValidator = require("react-email-validator");
 
-const Login = ({handleIconClick,  toggleShowHeader, toggleShowFooter}) => {
+const Login = ({handleLogin, handleIconClick,  toggleShowHeader, toggleShowFooter}) => {
+
+  const [isLoading, setisLoading] = useState(false);
+
   useEffect(() => {
     toggleShowHeader(false);
     toggleShowFooter(false);
@@ -12,6 +16,36 @@ const Login = ({handleIconClick,  toggleShowHeader, toggleShowFooter}) => {
 
   const handleRegisterClick = () => {
     navigate("/signup");
+  }
+
+  const [formValue, setFormValue] = useState({
+    email: '',
+    password: '',
+  });
+
+  const [validationErrors, setValidationErrors] = useState({
+    email: '',
+    password: '',
+  });
+  
+  const validateEmail = (email) => {
+    if(!reactEmailValidator.validate(email)){
+      return 'Проверьте адрес электронной почты';
+    }
+    return '';
+  };
+  
+  const validatePassword = (password) => {
+    if (password.length < 1) {
+      return 'Пароль должен быть минимум один символ';
+    }
+    return '';
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setisLoading(true);
+    handleLogin(formValue.email, formValue.password, setisLoading);
   }
 
   return (
@@ -27,22 +61,44 @@ const Login = ({handleIconClick,  toggleShowHeader, toggleShowFooter}) => {
       <form className="login__form">
         <div className="login__row">
           <label className="login__label">E-mail</label>
-          <input className="login__input" placeholder="Почта" required/>
+          <input className="login__input" placeholder="Почта" required
+          onChange={(e) => {
+            setFormValue({
+              ...formValue,
+              email: e.target.value,
+            });
+            setValidationErrors({
+              ...validationErrors,
+              email: validateEmail(e.target.value),
+            });
+          }}/>
           <span className="login__line"></span>
-          <span className="login__error"></span>
+          <span className="login__error">{validationErrors.email}</span>
         </div>
         <div className="login__row">
           <label className="login__label">Пароль</label>
-          <input className="login__input" type="password" placeholder="Пароль" required/>
+          <input className="login__input" type="password" placeholder="Пароль" required
+          onChange={(e) => {
+            setFormValue({
+              ...formValue,
+              password: e.target.value,
+            });
+            setValidationErrors({
+              ...validationErrors,
+              password: validatePassword(e.target.value),
+            });
+          }}/>
           <span className="login__line"></span>
-          <span className="login__error"></span>
+          <span className="login__error">{validationErrors.password}</span>
         </div>
       </form>
       <Submit
         buttonText={"Войти"}
         captionText={"Ещё не зарегистрированы?"}
         linkText={"Регистрация"}
+        disabled={Object.values(validationErrors).some((error) => error !== '') || Object.values(formValue).some((value) => value === '') || isLoading}
         handleLinkClick={handleRegisterClick}
+        handleClick={handleSubmit}
       />
     </div>
   );

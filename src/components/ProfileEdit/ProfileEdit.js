@@ -5,6 +5,7 @@ var reactEmailValidator = require("react-email-validator");
 const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick, toggleSidebar, toggleSource, toggleShowHeader, toggleShowFooter, name, email}) => {
 
   const [isFormModified, setIsFormModified] = useState(false);
+  const [isLoading, setisLoading] = useState(false);
   const [nameSuccessMessage, setNameMessage] = useState("");
   const [emailSuccessMessage, setEmailMessage] = useState("");
 
@@ -46,7 +47,8 @@ const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleEdit(formValue.name, formValue.email, name, email, setNameMessage, setEmailMessage);
+    setisLoading(true);
+    handleEdit(formValue.name, formValue.email, name, email, setNameMessage, setEmailMessage, setisLoading);
     setIsFormModified(false);
   }
 
@@ -95,7 +97,7 @@ const ProfileEdit = ({handleEdit, handleLogout, sidebarOpen, logout, handleClick
           </div>
           <span className="edit__error">{emailSuccessMessage}</span>
         </form>
-        <button className="edit__button edit__button_submit" type="submit" onClick={handleSubmit} disabled={Object.values(validationErrors).some((error) => error !== '') || !isFormModified}>Редактировать</button>
+        <button className="edit__button edit__button_submit" type="submit" onClick={handleSubmit} disabled={Object.values(validationErrors).some((error) => error !== '') || !isFormModified || isLoading}>Редактировать</button>
         <button className="edit__button edit__button_exit" type="button" onClick={handleLogout}>Выйти из аккаунта</button>
       </section>
       <NavTab

@@ -6,6 +6,8 @@ var reactEmailValidator = require("react-email-validator");
 
 const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShowFooter}) => {
 
+  const [isLoading, setisLoading] = useState(false);
+
   const [formValue, setFormValue] = useState({
     name: '',
     email: '',
@@ -45,7 +47,8 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    handleRegister(formValue.name, formValue.email, formValue.password);
+    setisLoading(true);
+    handleRegister(formValue.name, formValue.email, formValue.password, setisLoading);
   }
 
   useEffect(() => {
@@ -123,7 +126,7 @@ const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShow
         buttonText={"Зарегистрироваться"}
         captionText={"Уже зарегистрированы?"}
         linkText={"Войти"}
-        disabled={Object.values(validationErrors).some((error) => error !== '') || Object.values(formValue).some((value) => value === '')}
+        disabled={Object.values(validationErrors).some((error) => error !== '') || Object.values(formValue).some((value) => value === '') || isLoading}
         handleLinkClick={handleLoginClick}
         handleClick={handleSubmit}
       />

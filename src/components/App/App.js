@@ -118,7 +118,7 @@ const handleTokenCheck = () => {
   }).catch(err => console.log(err));
 }
 
-const handleRegister = (name, email, password) => {
+const handleRegister = (name, email, password, setisLoading) => {
   MainApi.register(name, email, password).then((res) => {
     setLoggedin(true);
     setCurrentUser(res.user);
@@ -127,10 +127,12 @@ const handleRegister = (name, email, password) => {
     navigate('/movies');
   }).catch(() => {
     setLoggedin(false);
+  }).finally(() => {
+    setisLoading(false);
   });
 }
 
-const handleLogin = (email, password) => {
+const handleLogin = (email, password, setisLoading) => {
   MainApi.authorize(email, password)
     .then((res) => {
       setLoggedin(true);
@@ -139,10 +141,12 @@ const handleLogin = (email, password) => {
       setEmail(res.user.email);
       navigate('/movies');
   }).catch(() => {
+  }).finally(() => {
+    setisLoading(false);
   });
 }
 
-const handleEdit = (name, email, oldName, oldEmail, setNameMessage, setEmailMessage) => {
+const handleEdit = (name, email, oldName, oldEmail, setNameMessage, setEmailMessage, setisLoading) => {
   MainApi.setProfileInfo({name: name, email: email})
     .then((res) => {
       console.log(res)
@@ -155,6 +159,8 @@ const handleEdit = (name, email, oldName, oldEmail, setNameMessage, setEmailMess
         setEmailMessage("Почта изменена");
       }
   }).catch(() => {
+  }).finally(() => {
+    setisLoading(false);
   });
 }
 

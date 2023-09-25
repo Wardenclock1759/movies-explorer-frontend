@@ -4,9 +4,8 @@ import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-const SavedMovies = ({userMovies, setUserMovies, sidebarOpen, toggleSidebar, handleClick, logout, toggleSource, toggleShowHeader, toggleShowFooter}) => {
+const SavedMovies = ({isLoading, userMovies, setUserMovies, sidebarOpen, toggleSidebar, handleClick, logout, toggleSource, toggleShowHeader, toggleShowFooter}) => {
 
-  const [isLoading, setisLoading] = useState(true);
   const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -24,10 +23,10 @@ const SavedMovies = ({userMovies, setUserMovies, sidebarOpen, toggleSidebar, han
   return (
     <>
       <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} isChecked={isShortFilmChecked} isSaved={true}/>
-      {!isLoading &&
+      {isLoading &&
         <Preloader/>
       }
-      {isLoading &&
+      {!isLoading &&
         <MoviesCardList
           movies={userMovies}
           isSaved={true}

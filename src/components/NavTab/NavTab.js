@@ -6,7 +6,7 @@ import {
   routesValues,
 } from "../../utils/config";
 
-const NavTab = ({logout, handleClick, opened = false, handleClose }) => {
+const NavTab = ({ logout, handleClick, opened = false, handleClose }) => {
 
   const handleCloseClick = () => {
     handleClose();
@@ -30,27 +30,21 @@ const NavTab = ({logout, handleClick, opened = false, handleClose }) => {
         <nav className='navtab-wrapper'>
           <NavLink
             to="/"
-            className={({ isActive, isPending }) =>
-              isPending ? "navtab__link" : isActive ? "navtab__link navtab__link_active" : "navtab__link"
-            }
+            className={"navtab__link"}
             onClick={handleLogoutClick}
           >
             {routesValues.main}
           </NavLink>
           <NavLink
             to="/movies"
-            className={({ isActive, isPending }) =>
-              isPending ? "navtab__link" : isActive ? "navtab__link navtab__link_active" : "navtab__link"
-            }
+            className={"navtab__link"}
             onClick={handleClose}
           >
             {routesValues.movies}
           </NavLink>
           <NavLink
             to="/saved-movies"
-            className={({ isActive, isPending }) =>
-              isPending ? "navtab__link" : isActive ? "navtab__link navtab__link_active" : "navtab__link"
-            }
+            className={"navtab__link"}
             onClick={handleClose}
           >
             {routesValues.savedMovies}

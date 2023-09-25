@@ -2,15 +2,16 @@ import {React, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 
 const NotFound = ({toggleShowHeader, toggleShowFooter}) => {
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     toggleShowHeader(false);
     toggleShowFooter(false);
   }, [toggleShowHeader, toggleShowFooter])
-
-  const navigate = useNavigate();
   
   const handleBackClick = () => {
-    navigate("/");
+    navigate(-1);
   }
 
   return (

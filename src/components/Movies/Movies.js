@@ -1,12 +1,10 @@
-import { React, useState, useEffect } from "react";
+import { React, useEffect } from "react";
 import NavTab from "../NavTab/NavTab";
 import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-const Movies = ({search, isChecked, setIsShortFilmChecked, setSearchQuery, movies, userMovies, setUserMovies, logout, handleClick, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
-
-  const [isLoading, setisLoading] = useState(true);
+const Movies = ({isLoading, search, isChecked, setIsShortFilmChecked, setSearchQuery, movies, userMovies, setUserMovies, logout, handleClick, toggleSource, toggleShowHeader, toggleShowFooter, toggleSidebar, sidebarOpen}) => {
 
   useEffect(() => {
     toggleSource(false);
@@ -25,10 +23,10 @@ const Movies = ({search, isChecked, setIsShortFilmChecked, setSearchQuery, movie
   return (
     <>
       <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} query={search} isChecked={isChecked}/>
-      {!isLoading &&
+      {isLoading &&
         <Preloader/>
       }
-      {isLoading &&
+      {!isLoading &&
         <MoviesCardList movies={movies} userMovies={userMovies} isShort={isChecked} search={search} handleLikeClick={handleLikeClick}/>
       }
       <NavTab

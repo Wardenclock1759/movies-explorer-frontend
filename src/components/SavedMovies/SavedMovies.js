@@ -4,36 +4,42 @@ import Preloader from "../Preloader/Preloader";
 import SearchForm from "../SearchForm/SearchForm";
 import MoviesCardList from "../MoviesCardList/MoviesCardList";
 
-const SavedMovies = ({toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter}) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [isLoading, setisLoading] = useState(true);
+const SavedMovies = ({isLoading, userMovies, setUserMovies, sidebarOpen, toggleSidebar, handleClick, logout, toggleSource, toggleShowHeader, toggleShowFooter}) => {
+
+  const [isShortFilmChecked, setIsShortFilmChecked] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
-    setisLoading(false);
-    toggleLogin(true);
     toggleSource(false);
     toggleShowHeader(true);
     toggleShowFooter(true);
-  }, [toggleLogin, toggleSource, toggleShowHeader, toggleShowFooter]);
+  }, [toggleSource, toggleShowHeader, toggleShowFooter]);
 
-  const toggleSidebar = () => {
-    setSidebarOpen(!sidebarOpen);
-  };
+  const handleDelete = (movieId) => {
+    const updatedUserMovies = userMovies.filter((movie) => movie.movieId !== movieId);
+    setUserMovies(updatedUserMovies);
+  }
 
   return (
     <>
-      <SearchForm/>
+      <SearchForm setIsShortFilmChecked={setIsShortFilmChecked} setSearchQuery={setSearchQuery} isChecked={isShortFilmChecked} isSaved={true}/>
       {isLoading &&
         <Preloader/>
       }
       {!isLoading &&
         <MoviesCardList
+          movies={userMovies}
           isSaved={true}
+          handleDelete={handleDelete}
+          isShort={isShortFilmChecked}
+          search={searchQuery}
         />
       }
       <NavTab
         opened={sidebarOpen}
         handleClose={toggleSidebar}
+        logout={logout}
+        handleClick={handleClick}
       />
     </>
   );

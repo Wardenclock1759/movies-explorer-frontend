@@ -20,6 +20,12 @@
   cursor: pointer;
 }
 
+.submit__button:disabled {
+  opacity: 0.4;
+  cursor: default;
+  pointer-events: none;
+}
+
 .submit__button:hover {
   opacity: 0.8;
 }

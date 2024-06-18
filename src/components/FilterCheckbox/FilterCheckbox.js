@@ -1,10 +1,10 @@
 import React from "react";
 
-const FilterCheckbox = () => {
+const FilterCheckbox = ({handleCheckboxChange, checked = false}) => {
   return (
     <div className="filter">
       <label className="filter__switch">
-        <input type="checkbox" className="filter__checkbox"/>
+        <input type="checkbox" className="filter__checkbox" checked={checked} onChange={handleCheckboxChange}/>
         <span className="filter__slider"></span>
       </label>
       <p className="filter__text">Короткометражки</p>

@@ -1,8 +1,55 @@
-import {React, useEffect} from "react";
+import {React, useState, useEffect} from "react";
 import { useNavigate } from 'react-router-dom';
 import Submit from "../Submit/Submit";
 
-const Register = ({handleIconClick, toggleShowHeader, toggleShowFooter}) => {
+var reactEmailValidator = require("react-email-validator");
+
+const Register = ({handleRegister, handleIconClick, toggleShowHeader, toggleShowFooter}) => {
+
+  const [isLoading, setisLoading] = useState(false);
+
+  const [formValue, setFormValue] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const [validationErrors, setValidationErrors] = useState({
+    name: '',
+    email: '',
+    password: '',
+  });
+
+  const validateName = (name) => {
+    const len = name.length;
+    if (len > 0 && len < 2) {
+      return 'Имя должно быть минимум 2 символа';
+    }
+    if (len > 30) {
+      return 'Имя должно быть меньше 30 символов';
+    }
+    return '';
+  };
+  
+  const validateEmail = (email) => {
+    if(!reactEmailValidator.validate(email)){
+      return 'Проверьте адрес электронной почты';
+    }
+    return '';
+  };
+  
+  const validatePassword = (password) => {
+    if (password.length < 1) {
+      return 'Пароль должен быть минимум один символ';
+    }
+    return '';
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    setisLoading(true);
+    handleRegister(formValue.name, formValue.email, formValue.password, setisLoading);
+  }
 
   useEffect(() => {
     toggleShowHeader(false);
@@ -28,28 +75,60 @@ const Register = ({handleIconClick, toggleShowHeader, toggleShowFooter}) => {
       <form className="register__form">
         <div className="register__row">
           <label className="register__label">Имя</label>
-          <input className="register__input" placeholder="Имя" min={2} max={30} required/>
+          <input className="register__input" placeholder="Имя" min={2} max={30} required
+          onChange={(e) => {
+            setFormValue({
+              ...formValue,
+              name: e.target.value,
+            });
+            setValidationErrors({
+              ...validationErrors,
+              name: validateName(e.target.value),
+            });
+          }}/>
           <span className="register__line"></span>
-          <span className="register__error"></span>
+          <span className="register__error">{validationErrors.name}</span>
         </div>
         <div className="register__row">
           <label className="register__label">E-mail</label>
-          <input className="register__input" placeholder="Почта" required/>
+          <input className="register__input" placeholder="Почта" required
+          onChange={(e) => {
+            setFormValue({
+              ...formValue,
+              email: e.target.value,
+            });
+            setValidationErrors({
+              ...validationErrors,
+              email: validateEmail(e.target.value),
+            });
+          }}/>
           <span className="register__line"></span>
-          <span className="register__error"></span>
+          <span className="register__error">{validationErrors.email}</span>
         </div>
         <div className="register__row">
           <label className="register__label">Пароль</label>
-          <input className="register__input" type="password" placeholder="Пароль" min={1} required/>
+          <input className="register__input" type="password" placeholder="Пароль" min={1} required
+          onChange={(e) => {
+            setFormValue({
+              ...formValue,
+              password: e.target.value,
+            });
+            setValidationErrors({
+              ...validationErrors,
+              password: validatePassword(e.target.value),
+            });
+          }}/>
           <span className="register__line"></span>
-          <span className="register__error"></span>
+          <span className="register__error">{validationErrors.password}</span>
         </div>
       </form>
       <Submit
         buttonText={"Зарегистрироваться"}
         captionText={"Уже зарегистрированы?"}
         linkText={"Войти"}
+        disabled={Object.values(validationErrors).some((error) => error !== '') || Object.values(formValue).some((value) => value === '') || isLoading}
         handleLinkClick={handleLoginClick}
+        handleClick={handleSubmit}
       />
     </div>
   );
